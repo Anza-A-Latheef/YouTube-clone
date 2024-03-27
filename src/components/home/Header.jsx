@@ -1,99 +1,198 @@
-import React from 'react'
-import styled from 'styled-components'
-import youtubeLogo from '../../assets/images/youtube.jpg'
-import { CiSearch } from "react-icons/ci";
-import { FaMicrophone } from "react-icons/fa6";
-import { RiVideoAddFill } from "react-icons/ri";
-import { GoBellFill } from "react-icons/go";
+    import React from 'react'
+    import styled from 'styled-components'
+    import youtubeLogo from '../../assets/images/youtube.jpg'
+    import { CiSearch } from "react-icons/ci";
+    import { FaMicrophone } from "react-icons/fa6";
+    import { RiVideoAddLine } from "react-icons/ri";
+    import { FaRegBell } from "react-icons/fa";
 
-const Header = () => {
-  return (
-    <HeaderContainer>
-      <Left>
-        <LogoContainer>
-          <LogoTag>
-            <LogoImage src={youtubeLogo} alt='Youtube-Logo'/>
-          </LogoTag>
-        </LogoContainer>
-        <SearchTab>
-          <SearchInput type="text" placeholder='Search'/>
-          <SearchIcon><CiSearch /></SearchIcon>
-          <VoiceSearch><FaMicrophone /></VoiceSearch>
-        </SearchTab>
-      </Left>
-      <Right>
-        <Create><RiVideoAddFill /></Create>
-        <Notification><GoBellFill /></Notification>
-        <Profile>M</Profile>
-      </Right>
-    </HeaderContainer>
-  )
-}
+    const Header = () => {
+    return (
+        <HeaderContainer>
+            <Left>
+                <LogoContainer>
+                    <LogoTag>
+                        <LogoImage alt='Youtube-Logo' src={youtubeLogo} />
+                    </LogoTag>
+                </LogoContainer>
+                <SearchTab>
+                    <SearchInput type="text" placeholder='Search'/>
+                    <SearchIcon><CiSearch /></SearchIcon>
+                    <VoiceSearch><FaMicrophone /></VoiceSearch>
+                </SearchTab>
+            </Left>
+            <Right>
+                <Create><RiVideoAddLine /></Create>
+                <Notification><FaRegBell /></Notification>
+                <NotificationNo>9+</NotificationNo>
+                <Profile>A</Profile>
+            </Right>
+        </HeaderContainer>
+    )
+    }
 
-export default Header
+    export default Header
 
-// styling Area
+    // styling Area
 
 const HeaderContainer=styled.section`
-  background: #0f0f0f;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: max-content;
+    background: #0f0f0f;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding:5px 50px;
+    height: max-content;
+    justify-content: space-between;
+    position:sticky;
+    top: 0;
 `;
 
 const Left=styled.div`
-display: flex;
-align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 73%;
 `;
 
 const LogoContainer=styled.h1`
-  width: 100px;
-  height: 20px;
-  `;
+    width: 100px;
+    height: 30px;
+`;
 
 const LogoTag=styled.a`
-  width: 100%;
-  background-color: transparent;
-  height: 100%;
-  background: #000;
-  `;
+    cursor: pointer;
+    width: 100%;
+    background-color: transparent;
+    height: 100%;
+    background: #000;
+`;
 
 const LogoImage=styled.img`
-  width: 100%;
-  height: 100%;
-  `;
+    width: 100%;
+    height: 100%;
+`;
 
 const SearchTab=styled.div`
-
+    display: flex;
+    align-items: center;
+    width: 67%;
 `;
 
-const SearchInput=styled.input`
+    const SearchInput=styled.input`
+        width: 100%;
+        height:40px;
+        position: relative;
+        font-size: medium;
+        background-color: #121212;;
+        border: 1px solid #303030;;
+        border-right: none;
+        border-radius: 40px 0 0 40px;
+        color: #ffffffe0;
+        padding: 0 4px 0 16px;
+    `;
 
-`;
+    const SearchIcon=styled.button`
+        cursor: pointer;
+        color: #ffffff;
+        display: flex;
+        font-size: larger;
+        font-weight: bolder;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #303030;;
+        background-color: #ffffff14;
+        border-radius: 0 40px 40px 0;
+        cursor: pointer;
+        height: 40px;
+        width: 74px;
+        margin: 0;
+    `;
 
-const SearchIcon=styled.div`
+    const VoiceSearch=styled.button`
+        background-color: #ffffff14;
+        color: #ffffff;
+        margin: 0px 10px ;
+        font-size: 23px;
+        height: 43px;
+        width:43px;
+        padding: 12px;
+        border-radius: 50%;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    `;
 
-`;
+    const Right=styled.div`
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    `;
 
-const VoiceSearch=styled.div`
+    const Create=styled.button`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #ffffff;
+        font-size: 24px;
+        border: none;
+        border-radius: 50%;
+        padding: 7px;
+        width: 37px;
+        height: 37px;
+        background: transparent;    
+        &:hover{
+        background-color: #ffffff14;
+        }
+    `;
 
-`;
+    const Notification=styled.button`
+    position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #ffffff;
+        font-size: 22px;
+        border: none;
+        border-radius: 50%;
+        padding: 10px;
+        width: 37px;
+        height: 37px;
+    background: transparent;    
+        &:hover{
+        background-color: #ffffff14;
+        }
+    `;
+    const NotificationNo=styled.span`
+        cursor:pointer;
+        position: absolute;
+        top: 14px;
+        width: 23px;
+        display: flex;
+        font-size: 13px;
+        border-radius: 63px;
+        color: #ffffff;
+        background-color: red;
+        height: 16px;
+        align-items: center;
+        justify-content: center;
+        right: 100px;
+    `;
 
-const Right=styled.div`
-
-`;
-
-const Create=styled.div`
-
-`;
-
-const Notification=styled.div`
-
-`;
-
-const Profile=styled.div`
-
-`;
+    const Profile=styled.button`
+        cursor: pointer;
+        border: none;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: #808080;
+        color: #ffffff;
+    `;
 
 
