@@ -11,6 +11,8 @@ import { ImNewspaper } from "react-icons/im";
 import { BsLightbulb } from "react-icons/bs";
 import { CiSettings } from "react-icons/ci";
 import { IoMdHelpCircleOutline } from 'react-icons/io';
+import videos from '../../assets/videos.json'
+
 
 const NavMenu = () => {
 return (
@@ -56,32 +58,12 @@ return (
         <YoutubeItems>
             <YouHead>Subscriptions</YouHead>
             <YouTubeItemUl>
-                <YouTubeItemLi>
-                    <MoreLogo><MoreLogoImg src={require("../../assets/images/youtubelogo.png")} alt="asadf"/></MoreLogo>
-                    <NavMenuP>Seaann</NavMenuP>
-                </YouTubeItemLi>
-                <YouTubeItemLi>
-                    <MoreLogo><MoreLogoImg src={require("../../assets/images/youtubelogo.png")} alt="asadf"/></MoreLogo>
-
-                    <NavMenuP>Karikku</NavMenuP>
-                </YouTubeItemLi>
-                <YouTubeItemLi>
-                    <MoreLogo><MoreLogoImg src={require("../../assets/images/youtubelogo.png")} alt="asadf"/></MoreLogo>
-
-                    <NavMenuP>Kudos Media</NavMenuP>
-                </YouTubeItemLi>
-                <YouTubeItemLi>
-                    <MoreLogo><MoreLogoImg src={require("../../assets/images/youtubelogo.png")} alt="asadf"/></MoreLogo>
-                    <NavMenuP>Pearle Maaney</NavMenuP>
-                </YouTubeItemLi>
-                <YouTubeItemLi>
-                    <MoreLogo><MoreLogoImg src={require("../../assets/images/youtubelogo.png")} alt="asadf"/></MoreLogo>
-                    <NavMenuP>Glamy Ganga</NavMenuP>
-                </YouTubeItemLi>
-                <YouTubeItemLi>
-                    <MoreLogo><MoreLogoImg src={require("../../assets/images/youtubelogo.png")} alt="asadf"/></MoreLogo>
-                    <NavMenuP>T-Series</NavMenuP>
-                </YouTubeItemLi>
+                {videos.slice(0,6).map((video, index) => (
+                    <YouTubeItemLi>
+                        <MoreLogo><MoreLogoImg src={video.thumbnail} alt="Profilepic"/></MoreLogo>
+                        <NavMenuP>{video.channelName}</NavMenuP>
+                    </YouTubeItemLi>
+                ))}
                 <ShowMoreButton><FaChevronDown /> Show more</ShowMoreButton>
             </YouTubeItemUl>
         </YoutubeItems>
@@ -208,19 +190,20 @@ const YouTubeItemCont=styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    
 `;
 
 const YoutubeItems=styled.div`
     margin-top: 10px;
     width: 100%;
-    `;
+`;
 
 const YouTubeItemUl=styled.div`
         display: flex;
         flex-direction: column;
         margin: 0px 20px;
         border-bottom:1px solid #ffffff33;
-    `;
+`;
 
 const YouTubeItemLi=styled.li`
     margin: 5px;

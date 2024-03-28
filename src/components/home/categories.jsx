@@ -58,11 +58,7 @@ const Categories = () => {
         {showLeftButton && <ScrollButton onClick={scrollLeft}><FaChevronLeft /></ScrollButton>}
         <CategoriesUl ref={categoriesRef}>
           {categories.map((category) => (
-            <CategoriesLi
-              key={category}
-              onClick={() => handleClick(category)}
-              className={activeCategory === category ? 'active' : ''}
-            >
+            <CategoriesLi key={category} onClick={() => handleClick(category)} className={activeCategory === category ? 'active' : ''}>
               <CategoriesA>{category}</CategoriesA>
             </CategoriesLi>
           ))}
@@ -122,6 +118,7 @@ const CategoriesA = styled.a`
 `;
 
 const CategoriesLi = styled.li`
+cursor: pointer;
   list-style: none;
   width: max-content;
   padding: 5px 10px;

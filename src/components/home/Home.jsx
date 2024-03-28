@@ -31,6 +31,9 @@ export default Home
         display: flex;
     `;
     const YoutubeHomeLeft=styled.section`
+        position: fixed;
+        top: 45px;
+        left: 0;
         height:100vh;
         overflow: hidden;
         scrollbar-color: transparent;
@@ -56,4 +59,5 @@ export default Home
         `;
     const YoutubeHomeRight=styled.section`
         width:82%;
-    `;
+        margin-left:18% ;
+`;
