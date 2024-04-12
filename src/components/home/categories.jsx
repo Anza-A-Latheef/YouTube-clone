@@ -1,20 +1,19 @@
 import React ,{useRef ,useEffect,useState} from 'react'
 import styled from 'styled-components'
 import { FaChevronRight , FaChevronLeft} from "react-icons/fa6";
+import Videos from './Videos';
 
 const categories = [
-  'All', 'Music', 'Actors', 'Game shows', 'Dramedy', 'Comedy', 'Dances',
-  'Aerobics', 'Indian Cuisine', 'Cooking', 'Drama', 'Recently uploaded',
-  'Pop Music', 'Hip Hop', 'New to you'
+  'All', 'Music', 'Fitness', 'Game shows', 'Travel','Art', 'Photography', 'Dances','Technologies',
+  'Aerobics', 'Indian Cuisine', 'Cooking', 'Drama', 'Recently uploaded', 'New to you','Entertainment'
 ];
 
 const Categories = () => {
   const categoriesRef=useRef(null);
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(false);
-  const [activeCategory,setActiveCategory]=useState(null);
-
-
+  const [activeCategory,setActiveCategory]=useState('All');
+  
   useEffect(() => {
     const handleScroll = () => {
       if (categoriesRef.current) {
@@ -34,8 +33,8 @@ const Categories = () => {
         categoriesRef.current.removeEventListener('scroll', handleScroll);
       }
     };
-  }, []);
-
+  }, [categoriesRef]);
+  
   const handleClick = (category) => {
     setActiveCategory(category);
   };
@@ -65,6 +64,7 @@ const Categories = () => {
         </CategoriesUl>
         {showRightButton && <ScrollButton onClick={scrollRight}><FaChevronRight /></ScrollButton>}
       </CategoriesScroll>
+      <Videos activeCategory={activeCategory}/>
     </CategoriesContainer>
   );
 };
@@ -73,13 +73,17 @@ const Categories = () => {
 export default Categories;
 
 const CategoriesContainer = styled.div`
-
+    
 `;
 
 const CategoriesScroll = styled.div`
-margin-top: 10px;
-align-items: center;
-  display: flex;
+    position: sticky;
+    top: 53px;
+    padding: 10px 0px;
+    align-items: center;
+    z-index: 10;
+    background-color: #0f0f0f;
+    display: flex;
 
 `;
 
@@ -135,20 +139,3 @@ cursor: pointer;
     }
   }
   `;
-
-const ScrollRight = styled.button`
-    background-color: transparent;
-    border:none;
-    margin: 0px 10px;
-    color: #ffffff;
-    width: 40px;
-    height: 40px;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    &:hover{
-      border-radius: 50%;
-      background-color: #ffffff14;
-    }
-`;

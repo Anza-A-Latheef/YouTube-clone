@@ -3,15 +3,19 @@
     import { BiSolidVolumeMute } from "react-icons/bi";
     import { PiSubtitlesFill } from "react-icons/pi";
     import videos from '../../assets/videos.json'
-    import { Link } from 'react-router-dom';
+    import {useNavigate } from 'react-router-dom';
     import { HiDotsVertical } from "react-icons/hi";
-
-    const Videos = () => {
-    return (
+  
+    const Videos = ({activeCategory}) => {
+        const filteredVideos = activeCategory === 'All' ? videos : videos.filter(video => video.categories.includes(activeCategory));
+        const navigate=useNavigate();
+        const handleClick=(videoId,title,duration,thumbnail,channelName,views,uploaded,categories,video_url,comments,commentList)=>{
+            navigate(`/video/${videoId}`,{state:{videoId:videoId, title:title ,duration:duration,thumbnail:thumbnail,channelName:channelName,views:views,uploaded:uploaded,categories:categories,video_url:video_url,comments:comments,commentList:commentList}})
+        }
+        return (
         <VideoContainer>
-        {videos.map((video, index) => (
-            <ThumbNail key={index}>
-                <Link>
+            {filteredVideos.map((video) => (
+            <ThumbNail key={video.videoId} onClick={()=>{handleClick(video.videoId,video.title,video.duration,video.thumbnail,video.channelName,video.views,video.uploaded,video.categories,video.video_url,video.comments,video.commentList)}}>
                     <ThumbnailImgContainer>
                         <ThumbNailImg src={video.thumbnail} alt="Thumbnail"/>
                         <VideoHover>
@@ -27,11 +31,10 @@
                         <VideoTitleContainer>
                             <VideoTitle>{video.title}</VideoTitle>
                             <ChannelName>{video.channelName}</ChannelName>
-                            <VideoViews>{video.views} . {video.uploaded}</VideoViews>
+                            <VideoViews>{video.views} Views . {video.uploaded}</VideoViews>
                         </VideoTitleContainer>
                         <MenuIcon><HiDotsVertical /></MenuIcon>
                     </VideoThumbnail>
-                </Link>
             </ThumbNail>
         ))}
         </VideoContainer>
@@ -162,7 +165,8 @@
     `;
 
     const VideoTitle=styled.h6`
-        font-size: 16px;
+        font-size: 17px;
+        font-weight :300;
         color:#f1f1f1;
         `;
 

@@ -59,7 +59,7 @@ return (
             <YouHead>Subscriptions</YouHead>
             <YouTubeItemUl>
                 {videos.slice(0,6).map((video, index) => (
-                    <YouTubeItemLi>
+                    <YouTubeItemLi key={index}>
                         <MoreLogo><MoreLogoImg src={video.thumbnail} alt="Profilepic"/></MoreLogo>
                         <NavMenuP>{video.channelName}</NavMenuP>
                     </YouTubeItemLi>

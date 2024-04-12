@@ -1,12 +1,37 @@
-    import React from 'react'
+    import React, { useState, useRef, useEffect } from 'react';
     import styled from 'styled-components'
     import youtubeLogo from '../../assets/images/youtube.jpg'
     import { CiSearch } from "react-icons/ci";
     import { FaMicrophone } from "react-icons/fa6";
     import { RiVideoAddLine } from "react-icons/ri";
     import { FaRegBell } from "react-icons/fa";
+    import HeaderPop from './HeaderPop';
 
     const Header = () => {
+        const [isProfileOpen, setIsProfileOpen] = useState(false);
+        const popRef = useRef(null);
+    
+        useEffect(() => {
+            const handleClickOutside = (event) => {
+                if (popRef.current && !popRef.current.contains(event.target)) {
+                    setIsProfileOpen(false);
+                }
+            };
+    
+            document.addEventListener('mousedown', handleClickOutside);
+            return () => {
+                document.removeEventListener('mousedown', handleClickOutside);
+            };
+        }, []);
+    
+        const toggleProfile = () => {
+            setIsProfileOpen(prevState => !prevState);
+        };
+    
+        const closeProfile = () => {
+            setIsProfileOpen(false);
+        };
+    
     return (
         <HeaderContainer>
             <Left>
@@ -25,8 +50,9 @@
                 <Create><RiVideoAddLine /></Create>
                 <Notification><FaRegBell /></Notification>
                 <NotificationNo>9+</NotificationNo>
-                <Profile>A</Profile>
+                <Profile onClick={toggleProfile}>A</Profile>
             </Right>
+            {isProfileOpen && <HeaderPop/>}
         </HeaderContainer>
     )
     }
@@ -45,6 +71,7 @@ const HeaderContainer=styled.section`
     justify-content: space-between;
     position:sticky;
     top: 0;
+    z-index: 11;
 `;
 
 const Left=styled.div`
@@ -52,22 +79,23 @@ const Left=styled.div`
     align-items: center;
     justify-content: space-between;
     width: 73%;
-`;
+    `;
 
 const LogoContainer=styled.h1`
     width: 100px;
+    background-color: #0f0f0f;
     height: 30px;
 `;
 
 const LogoTag=styled.a`
     cursor: pointer;
     width: 100%;
-    background-color: transparent;
     height: 100%;
-    background: #000;
-`;
+    background-color: #0f0f0f;
+    `;
 
 const LogoImage=styled.img`
+background-color: #0f0f0f;
     width: 100%;
     height: 100%;
 `;

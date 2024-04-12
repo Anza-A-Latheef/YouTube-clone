@@ -25,7 +25,7 @@ export default Home
 
     const HomeContainer=styled.section`
         display: block;
-        background: #000;
+        background-color: #0f0f0f
     `;
     const YoutubeHome=styled.section`
         display: flex;
@@ -48,7 +48,7 @@ export default Home
             }
 
             &::-webkit-scrollbar-track {
-                background: #000; 
+                background-color: #0f0f0f
             }
         
             &::-webkit-scrollbar-thumb {
