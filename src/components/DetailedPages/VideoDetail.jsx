@@ -47,11 +47,26 @@ export default VideoDetail
 const VideoDetailContainer=styled.div`
     display: flex;
     flex-direction: column;
+    @media (max-width: 1024px) {
+        margin-left: 30px;
+    }
+    @media (max-width: 768px) {
+        margin:0px 30px;
+    }
 `;
 
 const VideoFrame=styled.div`
     width: 100%;
     height: 480px;
+    @media (max-width: 1024px) {
+        height: 400px;
+    }
+    @media (max-width: 360px) {
+        height: 250px;
+    }
+    @media (max-width: 320px) {
+        height: 200px;
+    }
 `;
 
 const Frame=styled.iframe`
@@ -71,23 +86,47 @@ const VideoFrameTitle=styled.h3`
     display: block;
     white-space: normal;
     margin-top: 10px;
+    @media (max-width: 360px) {
+        font-size: 20px;
+    }
 `;
 
 const ChannelDetail=styled.div`
     display:flex;
     justify-content: space-between;
+    @media (max-width: 360px) {
+        margin-top: 15px;
+    }
 `;
 
 const ProfileDiv=styled.div`
     display: flex;
     gap: 15px;
     align-items: center;
+    @media (max-width: 1024px) {
+        gap: 6px;
+    }
+    @media (max-width: 480px) {
+        gap: 15px;
+    }
 `;
 
 const ChannelProfile=styled.div`
     width:40px;
     height:40px;
     cursor: pointer;
+    @media (max-width: 1024px) {
+        width:35px;
+        height:35px;
+    }
+    @media (max-width: 480px) {
+        width:40px;
+        height:40px;
+    }
+    @media (max-width: 320px) {
+        width:35px;
+        height:35px;
+    }
 `;
 
 const ProfileImg=styled.img`
@@ -106,6 +145,15 @@ const ChannelTitle=styled.h6`
     font-weight:600;
     font-size: 16px;
     cursor: pointer;
+    @media (max-width: 1024px) {
+        font-size: 15px;
+    }
+    @media (max-width: 480px) {
+        font-size: 16px;
+    }
+    @media (max-width: 320px) {
+        font-size: 15px;
+    }
 `;
 
 const Subscribers=styled.p`
@@ -123,12 +171,22 @@ const SubscribeButton=styled.button`
     font-weight: 500;
     margin-left: 10px;
     border:none;
+    @media (max-width: 1024px) {
+       padding: 6px 13px;
+       margin-left:0px ;
+    }
 `;
 
 const ProfileOptions=styled.div`
     display: flex;
     align-items: center;
     gap: 10px;
+    @media (max-width: 1024px) {
+       gap: 5px;
+    }
+    @media (max-width: 480px) {
+        display: none;
+    }
 `;
 
 const LikeOptions=styled.div`
@@ -142,6 +200,9 @@ const LikeOptions=styled.div`
     &:hover{
         background-color: #c0b5b567;
     }
+    @media (max-width: 1024px) {
+
+}
 `;
 
 const LikeButton=styled.button`
@@ -196,6 +257,9 @@ const DownloadButton=styled.button`
     &:hover{
         background-color: #c0b5b567;
     }
+    @media (max-width: 1024px) {
+        display: none;
+}
 `;
 
 const MenuButton=styled.button`

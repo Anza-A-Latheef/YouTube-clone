@@ -1,16 +1,22 @@
-    import React from 'react';
-    import Header from './Header';
-    import styled from 'styled-components';
-    import NavMenu from './NavMenu.jsx';
-    import Categories from './categories.jsx'
-    import Videos from './Videos.jsx'
+import React, {useState} from 'react';
+import Header from './Header';
+import styled from 'styled-components';
+import NavMenu from './NavMenu.jsx';
+import Categories from './categories.jsx';
+import Videos from './Videos.jsx';
 
 const Home = () => {
+    const [isYouTubeHomeLeftOpen, setIsYouTubeHomeLeftOpen] = useState(false);
+
+    const toggleYouTubeHomeLeft = () => {
+        setIsYouTubeHomeLeftOpen(prevState => !prevState);
+    };
+
     return (
         <HomeContainer>
-            <Header/>
+            <Header toggleYouTubeHomeLeft={toggleYouTubeHomeLeft} />
             <YoutubeHome>
-                <YoutubeHomeLeft>
+                <YoutubeHomeLeft isVisible={isYouTubeHomeLeftOpen}>
                     <NavMenu/>
                 </YoutubeHomeLeft>
                 <YoutubeHomeRight>
@@ -31,7 +37,9 @@ export default Home
         display: flex;
     `;
     const YoutubeHomeLeft=styled.section`
+        z-index: 11;
         position: fixed;
+        background-color: #0f0f0f;
         top: 45px;
         left: 0;
         height:100vh;
@@ -56,8 +64,40 @@ export default Home
                 border-radius: 10px;
                 height: 50px;
             }
+            @media (max-width: 1024px) {
+                width: 21%;
+            }
+            @media (max-width: 980px) {
+                width: 25%;
+                display: ${props => props.isVisible ? 'block' : 'none'};
+            }
+            @media (max-width: 768px) {
+                width: 30%;
+            }
+            @media (max-width: 640px) {
+                width: 40%;
+            }
+            @media (max-width: 480px) {
+                width: 50%;
+            }
+            @media (max-width: 360px) {
+                width: 65%;
+            }
+            @media (max-width: 320px) {
+                width: 70%;
+            }
         `;
+
+       
     const YoutubeHomeRight=styled.section`
         width:82%;
         margin-left:18% ;
+        @media (max-width: 1024px) {
+            margin-left:23% ;
+                width: 75%;
+            }
+            @media (max-width: 980px) {
+                width: 95%;
+                margin:2% 5%;
+            }
 `;

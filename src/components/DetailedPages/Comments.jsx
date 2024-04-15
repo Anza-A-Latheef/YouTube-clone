@@ -43,6 +43,9 @@ export default Comments
 const CommentsContainer=styled.div`
     display:flex;
     flex-direction:column;
+    @media (max-width: 1024px) {
+        margin-left: 20px;
+        }
 `;
 
 const CommentsHead=styled.div`

@@ -29,6 +29,9 @@ export default DetailedPage;
 const DetailedPageContainer=styled.div`
     background-color: #0f0f0f;
     height: 100vh;
+    @media (max-width: 768px) {
+        height: max-content;
+    }
 `;
 
 const DetailPageBottom=styled.div`
@@ -37,6 +40,12 @@ const DetailPageBottom=styled.div`
     display: flex;
     gap: 30px;
     height:88vh;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        background-color: #0f0f0f;
+        height:auto;
+
+    }
     `;
 const DetailedPageLeft=styled.div`
     width:67%;
@@ -44,6 +53,25 @@ const DetailedPageLeft=styled.div`
     &::-webkit-scrollbar {
         display: none; 
     }
+    @media (max-width: 1024px) {
+        width:70%;
+    }
+    @media (max-width: 768px) {
+        width: 100%;
+        overflow: visible;
+    }
+    /* @media (max-width: 640px) {
+        width: 40%;
+    }
+    @media (max-width: 480px) {
+        width: 50%;
+    }
+    @media (max-width: 360px) {
+        width: 65%;
+    }
+    @media (max-width: 320px) {
+        width: 70%;
+    }  */
     `;
 
 const DetailedPageRight=styled.div`
@@ -51,5 +79,9 @@ const DetailedPageRight=styled.div`
     overflow-y: auto;
     &::-webkit-scrollbar {
         display: none;
+    }
+    @media (max-width: 768px) {
+        width: 100%;
+        overflow: visible;
     }
 `;

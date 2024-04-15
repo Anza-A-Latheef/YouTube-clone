@@ -49,6 +49,21 @@
         display: grid;
         grid-template-columns: 3fr 3fr 3fr;
         overflow: hidden;
+
+        @media (max-width: 1024px) {
+            grid-template-columns: 2fr 2fr ;
+            }
+        @media (max-width: 980px) {
+            grid-template-columns: 3fr 3fr 3fr ;
+            }
+        @media (max-width: 768px) {
+            grid-template-columns: 2fr 2fr ;
+            }
+        @media (max-width: 480px) {
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            }
     `;
 
     const ThumbNail=styled.div`
@@ -98,6 +113,30 @@
                 display: none;
             }
         }
+        @media (max-width: 980px) {
+        width: 280px;
+        height: 163px;
+    }
+        @media (max-width: 768px) {
+            width: 343px;
+            height:193px;
+    }
+        @media (max-width: 768px) {
+            width: 280px;
+            height: 163px;
+    }
+    @media (max-width: 480px) {
+            width: 343px;
+            height:193px;
+    }
+    @media (max-width: 360px) {
+            width: 323px;
+            height:173px;
+    }
+    @media (max-width: 320px) {
+            width: 280px;
+            height: 163px;
+    }
     `;
 
     const ThumbNailImg=styled.img`
@@ -105,8 +144,6 @@
         height:100%;
         border-radius: 10px;
     `;
-
- 
 
     const VolumeIcon=styled.button`
     color: #ffffff;
@@ -147,7 +184,27 @@
                 display: block;
             }
         }
-`;
+        @media (max-width: 980px) {
+            margin: 10px 0px;
+            gap: 10px;
+        }
+        @media (max-width: 786px) {
+            margin: 10px;
+            gap: 20px;
+        }
+        @media (max-width: 640px) {
+            margin: 10px 0px;
+            gap: 10px;
+        }
+        @media (max-width: 480px) {
+            margin: 10px;
+            gap: 20px;
+        }
+        @media (max-width: 320px) {
+            margin: 10px 0px;
+            gap: 10px;
+        }
+    `;
 
     const ChannelProfile=styled.div`
         width:36px;
@@ -162,12 +219,16 @@
 
     const VideoTitleContainer=styled.div`
         max-width: 263px;
+        
     `;
 
     const VideoTitle=styled.h6`
         font-size: 17px;
         font-weight :300;
         color:#f1f1f1;
+        @media (max-width: 320px) {
+            font-size: 15px;
+        }
         `;
 
     const ChannelName=styled.p`

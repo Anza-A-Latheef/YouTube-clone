@@ -1,155 +1,591 @@
-import React, { forwardRef } from 'react';
+import React ,{useState, useEffect ,useContext} from 'react'
+import { UserContext } from '../App';
+import { BASE_URL } from '../assets/axiosConfig'
 import styled from 'styled-components';
-import {useNavigate } from 'react-router-dom';
+import {Link , useNavigate } from 'react-router-dom';
 import youtubeLogo from '../assets/images/youtube.jpg'
+import axios from 'axios'
 
-	const Login = forwardRef((props, ref) =>{
-		const navigate=useNavigate();
-		const handleSignup=()=>{
-			navigate(`/signup`)}
-		return (
-		<LoginContainer>
-			 <HeaderContainer>
-					<LogoContainer>
-						<LogoTag>
-							<LogoImage alt='Youtube-Logo' src={youtubeLogo} />
-						</LogoTag>
-					</LogoContainer>
-        	</HeaderContainer>
-			<LoginContent>
-				<LoginHead>Sign In</LoginHead>
-				<SignInForm>
-					<InputContainer>
-						<SiginLabel>Your Name</SiginLabel>
-						<SiginInput type='text' placeholder="Your Name"/>
-					</InputContainer>
-					<InputContainer>
-						<SiginLabel>Username</SiginLabel>
-						<SiginInput type='text' placeholder="Username"/>
-					</InputContainer>
-					<InputContainer>
-						<SiginLabel>Password</SiginLabel>
-						<SiginInput type='password' placeholder="Password"/>
-					</InputContainer>
-					<SignInButton>Sign In</SignInButton>
-					<SignupOption>Already have an account? <SignupButton onClick={()=>{handleSignup()}}>Sign Up</SignupButton></SignupOption>
-				</SignInForm>
-			</LoginContent>
-		</LoginContainer>
-	);
-	});
+const Login = () => {
+  const [useremail, setUseremail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+  const { updateUserData } = useContext(UserContext);
 
-	export default Login
+  const handleSignup = () => {
+    navigate('/signup');
+  };
 
-	const LoginContainer=styled.div`
-		height: 100vh;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		background-color: #0f0f0f;
+  return (
+    <LoginContainer>
+      <HeaderContainer>
+        <LogoContainer to="/" style={{ textDecoration: 'none' }}>
+          <LogoTag>
+            <LogoImage alt="Youtube-Logo" src={youtubeLogo} />
+          </LogoTag>
+        </LogoContainer>
+      </HeaderContainer>
+      <LoginContent>
+        <LoginHead>Log In</LoginHead>
+        <SignInForm>
+          <InputContainer>
+            <SiginLabel>Email</SiginLabel>
+            <SiginInput
+              type="email"
+              value={useremail}
+              onChange={(e) => setUseremail(e.target.value)}
+              placeholder="Email"
+            />
+          </InputContainer>
+          <InputContainer>
+            <SiginLabel>Password</SiginLabel>
+            <SiginInput
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="Password"
+            />
+          </InputContainer>
+          {message && <ErrorMessage>{message}</ErrorMessage>}
+          <SignInButton type="submit">Log In</SignInButton>
+        </SignInForm>
+        <SignupOption>
+          New User?
+          <SignupButton type="button" onClick={handleSignup}>
+            Signup now
+          </SignupButton>
+        </SignupOption>
+      </LoginContent>
+    </LoginContainer>
+  );
+};
+
+export default Login;
+
+const LoginContainer = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #0f0f0f;
+`;
+
+const LoginContent = styled.div`
+  display: flex;
+  width: min-content;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 95%;
+`;
+
+const LoginHead = styled.h3`
+  color: #f0f0f0;
+  font-size: 25px;
+  line-height: 5rem;
+`;
+
+const SignInForm = styled.form`
+  padding: 30px;
+  border: 1px solid #666;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const InputContainer = styled.div``;
+
+const SiginLabel = styled.label`
+  color: #666;
+  font-size: 13px;
+  line-height: 2em;
+`;
+
+const SiginInput = styled.input`
+  background-color: transparent;
+  color: #f0f0f0;
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+`;
+
+const SignInButton = styled.button`
+  background-color: #aaa;
+  color: #000;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 12px 0px;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+`;
+
+const SignupOption = styled.p`
+  color: #666;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-top: 10px;
+`;
+
+const SignupButton = styled.button`
+  border: none;
+  cursor: pointer;
+  color: #3ea6ff;
+  background-color: transparent;
+  margin: 0px 10px;
+  font-size: 12px;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const HeaderContainer = styled.section`
+  background: #0f0f0f;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 5px 50px;
+  height: max-content;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 11;
+`;
+
+const LogoContainer = styled(Link)`
+  width: 150px;
+  background-color: #0f0f0f;
+  height: 50px;
+`;
+
+const LogoTag = styled.a`
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  background-color: #0f0f0f;
+`;
+
+const LogoImage = styled.img`
+  background-color: #0f0f0f;
+  width: 100%;
+  height: 100%;
+`;
+
+const ErrorMessage = styled.p`
+  color: red;
+  font-size: 12px;
+  margin-top: 10px;
+`;
+
+
+// import React ,{useState, useEffect ,useContext} from 'react'
+// import { UserContext } from '../App';
+// import { BASE_URL } from '../assets/axiosConfig'
+// import styled from 'styled-components';
+// import {Link , useNavigate } from 'react-router-dom';
+// import youtubeLogo from '../assets/images/youtube.jpg'
+// import axios from 'axios'
+
+// 	const Signup = () =>{
+// 		const [useremail, setUseremail] = useState('');
+// 		const [password, setPassword] = useState('');
+// 		const [name, setName] = useState("");
+// 		const [userId, setUserId] = useState("");
+// 		const [message, setMessage] = useState('');
+// 		const navigate = useNavigate();
+// 		const { updateUserData } = useContext(UserContext);
+
+// 		const handleLogin=()=>{
+// 			navigate(`/login`)
+// 		}
+// 		// useEffect(() => {
+// 		// 	handleLogin();
+// 		// }, []);
+
+// 		const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setMessage("");
+
+//     try {
+//       const response = await axios.post(`${BASE_URL}/auth/register/`, {
+//         email: useremail,
+//         password: password,
+//         name: name,
+//         userId: userId
+//       });
+
+//       const data = response.data.data;
+//       const statusCode = response.data.StatusCode;
+
+//       if (statusCode === 6000) {
+//         localStorage.setItem("user_data", JSON.stringify(data));
+//         updateUserData({ type: "LOGIN", payload: data });
+//         navigate('/');
+//       } else {
+//         setMessage(response.data.message);
+//       }
+//     } catch (error) {
+//       console.log(error.response.status);
+//       if (error.response.status === 401) {
+//         setMessage(error.response.data.detail);
+//       }
+//     }
+//   };
+
+// 		return (
+// 		<LoginContainer>
+// 			 <HeaderContainer>
+// 					<LogoContainer to="/" style={{ textDecoration: 'none'}}>
+// 						<LogoTag>
+// 							<LogoImage alt='Youtube-Logo' src={youtubeLogo} />
+// 						</LogoTag>
+// 					</LogoContainer>
+//         	</HeaderContainer>
+// 			<LoginContent>
+// 				<LoginHead>Sign Up</LoginHead>
+// 				<SignInForm onSubmit={handleSubmit}>
+// 					<InputContainer>
+// 						<SiginLabel>Email</SiginLabel>
+// 						<SiginInput
+// 							type='email' 
+// 							value={useremail} 
+// 							onChange={(e)=>setUseremail(e.target.value)} 
+// 							placeholder="Email"/>
+// 					</InputContainer>
+// 					<InputContainer>
+// 						<SiginLabel>Your Name</SiginLabel>
+// 						<SiginInput
+// 							value={name} 
+// 							onChange={(e)=>setName(e.target.value)} 
+// 							type='text' 
+// 							placeholder="Your Name"/>
+// 					</InputContainer>
+// 					<InputContainer>
+// 						<SiginLabel>Username</SiginLabel>
+// 						<SiginInput
+// 							value={userId} 
+// 							onChange={(e)=>setUserId(e.target.value)} 
+// 							type='text'
+// 							placeholder="Username"/>
+// 					</InputContainer>
+// 					<InputContainer>
+// 						<SiginLabel>Password</SiginLabel>
+// 						<SiginInput
+// 							value={password} 
+// 							onChange={(e)=>setPassword(e.target.value)} 
+// 							type='password'
+// 							placeholder="Password"/>
+// 					</InputContainer>
+// 					{message && <ErrorMessage>{message}</ErrorMessage>}
+// 					<SignInButton type="submit">Sign Up</SignInButton>
+// 				</SignInForm>
+// 				<SignupOption>Already have an account? <SignupButton type="button" onClick={handleLogin()}> Log in </SignupButton></SignupOption>
+// 			</LoginContent>
+// 		</LoginContainer>
+// 	);
+// 	}
+
+// 	export default Signup
+
+// 	const LoginContainer=styled(Link)`
+// 		height: 100vh;
+// 		display: flex;
+// 		flex-direction: column;
+// 		align-items: center;
+// 		background-color: #0f0f0f;
 		
-		`;
+// 		`;
 
-const LoginContent=styled.div`
-		display:flex;
-		width: min-content;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		height: 95%;
-		`;
+// const LoginContent=styled.div`
+// 		display:flex;
+// 		width: min-content;
+// 		flex-direction: column;
+// 		align-items: center;
+// 		justify-content: center;
+// 		height: 95%;
+// 		`;
 
-const LoginHead=styled.h3`
-	color: #f0f0f0;
-	font-size: 25px;
-	line-height: 5rem;
-	`;
+// const LoginHead=styled.h3`
+// 	color: #f0f0f0;
+// 	font-size: 25px;
+// 	line-height: 5rem;
+// 	`;
 
-const SignInForm=styled.form`
-	padding: 30px;
-	border: 1px solid #666;
-	border-radius: 20px;
-	display: flex;
-	flex-direction: column;
-	`;
-const InputContainer=styled.div`
+// const SignInForm=styled.form`
+// 	padding: 30px;
+// 	border: 1px solid #666;
+// 	border-radius: 20px;
+// 	display: flex;
+// 	flex-direction: column;
+// 	`;
+// const InputContainer=styled.div`
 	
-	`;
+// 	`;
 
-	const SiginLabel=styled.label`
-		color: #666;
-		font-size: 13px;
-		line-height: 2em;
-	`;
+// 	const SiginLabel=styled.label`
+// 		color: #666;
+// 		font-size: 13px;
+// 		line-height: 2em;
+// 	`;
 
-const SiginInput=styled.input`
-		background-color: transparent;
-		color: #f0f0f0;
-		width: 300px;
-		padding: 10px;
-		margin-bottom: 15px;
-		border-radius: 10px;
-	`;
+// const SiginInput=styled.input`
+// 		background-color: transparent;
+// 		color: #f0f0f0;
+// 		width: 300px;
+// 		padding: 10px;
+// 		margin-bottom: 15px;
+// 		border-radius: 10px;
+// 	`;
 
-	const SignInButton=styled.button`
-		background-color: #aaa;
-		color: #000;
-		border-radius: 10px;
-		margin-top:20px;
-		padding: 12px 0px;
-		cursor: pointer;
-		font-weight: bold;
-		border: none;
-	`;
-	const SignupOption=styled.p`
-	 	color: #666;
-		border-radius: 10px;
-		cursor: pointer;
-		font-size: 12px;
-		margin-top: 10px;
-	`;
-	const SignupButton=styled.button`
-		border: none;
-		cursor: pointer;
-		color: #3ea6ff;
-		background-color: transparent;
-		margin: 0px 10px;
-		font-size: 12px;
-		&:hover{
-			text-decoration: underline;
-		}
+// 	const SignInButton=styled.button`
+// 		background-color: #aaa;
+// 		color: #000;
+// 		border-radius: 10px;
+// 		margin-top:20px;
+// 		padding: 12px 0px;
+// 		cursor: pointer;
+// 		font-weight: bold;
+// 		border: none;
+// 	`;
+// 	const SignupOption=styled.p`
+// 	 	color: #666;
+// 		border-radius: 10px;
+// 		cursor: pointer;
+// 		font-size: 12px;
+// 		margin-top: 10px;
+// 	`;
+// 	const SignupButton=styled.button`
+// 		border: none;
+// 		cursor: pointer;
+// 		color: #3ea6ff;
+// 		background-color: transparent;
+// 		margin: 0px 10px;
+// 		font-size: 12px;
+// 		&:hover{
+// 			text-decoration: underline;
+// 		}
 
-	`;
+// 	`;
 
-const HeaderContainer=styled.section`
-background: #0f0f0f;
-display: flex;
-align-items: center;
-width: 100%;
-padding:5px 50px;
-height: max-content;
-justify-content: space-between;
-position:sticky;
-top: 0;
-z-index: 11;
-`;
+// const HeaderContainer=styled.section`
+// background: #0f0f0f;
+// display: flex;
+// align-items: center;
+// width: 100%;
+// padding:5px 50px;
+// height: max-content;
+// justify-content: space-between;
+// position:sticky;
+// top: 0;
+// z-index: 11;
+// `;
 
-const LogoContainer=styled.h1`
-width: 150px;
-background-color: #0f0f0f;
-height: 50px;
-`;
+// const LogoContainer=styled.h1`
+// width: 150px;
+// background-color: #0f0f0f;
+// height: 50px;
+// `;
 
-const LogoTag=styled.a`
-cursor: pointer;
-width: 100%;
-height: 100%;
-background-color: #0f0f0f;
-`;
+// const LogoTag=styled.a`
+// cursor: pointer;
+// width: 100%;
+// height: 100%;
+// background-color: #0f0f0f;
+// `;
 
-const LogoImage=styled.img`
-background-color: #0f0f0f;
-width: 100%;
-height: 100%;
-`;
+// const LogoImage=styled.img`
+// background-color: #0f0f0f;
+// width: 100%;
+// height: 100%;
+// `;
 
+// const ErrorMessage=styled.p`
+// 	 	color: red;
+// 		font-size: 12px;
+// 		margin-top: 10px;
+// 	`;
+
+
+
+// import React,{useState , useContext} from 'react';
+// import styled from 'styled-components'
+// import youtubeLogo from '../assets/images/youtube.jpg'
+// import axios from 'axios';
+// import { Link , useNavigate} from 'react-router-dom';
+// import { BASE_URL } from '../../src/assets/axiosConfig'
+// import { UserContext } from '../App';
+
+// const Login = () => {
+//   const [username, setUsername] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [message, setMessage] = useState('');
+//   const navigate = useNavigate();
+//   const { updateUserData } = useContext(UserContext);
+
+//   const handleSignup = () => {
+//     navigate(`/signup`);
+//   };
+
+//   return (
+//     <LoginContainer>
+//       <HeaderContainer>
+//         <LogoContainer to="/" style={{ textDecoration: 'none' }}>
+//           <LogoTag>
+//             <LogoImage alt='Youtube-Logo' src={youtubeLogo} />
+//           </LogoTag>
+//         </LogoContainer>
+//       </HeaderContainer>
+//       <LoginContent>
+//         <LoginHead>Log In</LoginHead>
+//         <SignInForm>
+//           <InputContainer>
+//             <SiginLabel>Username</SiginLabel>
+//             <SiginInput
+//               type='text'
+//               value={username}
+//               onChange={(e) => setUsername(e.target.value)}
+//               placeholder='Username'
+//             />
+//           </InputContainer>
+//           <InputContainer>
+//             <SiginLabel>Password</SiginLabel>
+//             <SiginInput
+//               type='password'
+//               value={password}
+//               onChange={(e) => setPassword(e.target.value)}
+//               placeholder='Password'
+//             />
+//           </InputContainer>
+//           {message && <ErrorMessage>{message}</ErrorMessage>}
+//           <SignInButton type='submit'>Log in</SignInButton>
+//           <SignupOption>
+//             New User?
+//             <SignupButton onClick={handleSignup}>Sign Up</SignupButton>
+//           </SignupOption>
+//         </SignInForm>
+//       </LoginContent>
+//     </LoginContainer>
+//   );
+// };
+
+// export default Login;
+
+// const LoginContainer = styled.div`
+//   height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   background-color: #0f0f0f;
+// `;
+
+// const LoginContent = styled.div`
+//   display: flex;
+//   width: min-content;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   height: 95%;
+// `;
+
+// const LoginHead = styled.h3`
+//   color: #f0f0f0;
+//   font-size: 25px;
+//   line-height: 5rem;
+// `;
+
+// const SignInForm = styled.form`
+//   padding: 30px;
+//   border: 1px solid #666;
+//   border-radius: 20px;
+//   display: flex;
+//   flex-direction: column;
+// `;
+
+// const InputContainer = styled.div``;
+
+// const SiginLabel = styled.label`
+//   color: #666;
+//   font-size: 13px;
+//   line-height: 2em;
+// `;
+
+// const SiginInput = styled.input`
+//   background-color: transparent;
+//   color: #f0f0f0;
+//   width: 300px;
+//   padding: 10px;
+//   margin-bottom: 15px;
+//   border-radius: 10px;
+// `;
+
+// const SignInButton = styled.button`
+//   background-color: #aaa;
+//   color: #000;
+//   border-radius: 10px;
+//   margin-top: 20px;
+//   padding: 12px 0px;
+//   cursor: pointer;
+//   font-weight: bold;
+//   border: none;
+// `;
+
+// const SignupOption = styled.p`
+//   color: #666;
+//   border-radius: 10px;
+//   cursor: pointer;
+//   font-size: 12px;
+//   margin-top: 10px;
+// `;
+
+// const SignupButton = styled.button`
+//   border: none;
+//   cursor: pointer;
+//   color: #3ea6ff;
+//   background-color: transparent;
+//   margin: 0px 5px;
+//   font-size: 12px;
+//   &:hover {
+//     text-decoration: underline;
+//   }
+// `;
+
+// const HeaderContainer = styled.section`
+//   background: #0f0f0f;
+//   display: flex;
+//   align-items: center;
+//   width: 100%;
+//   padding: 5px 50px;
+//   height: max-content;
+//   justify-content: space-between;
+//   position: sticky;
+//   top: 0;
+//   z-index: 11;
+// `;
+
+// const LogoContainer = styled(Link)`
+//   width: 150px;
+//   background-color: #0f0f0f;
+//   height: 50px;
+// `;
+
+// const LogoTag = styled.a`
+//   cursor: pointer;
+//   width: 100%;
+//   height: 100%;
+//   background-color: #0f0f0f;
+// `;
+
+// const LogoImage = styled.img`
+//   background-color: #0f0f0f;
+//   width: 100%;
+//   height: 100%;
+// `;
+
+// const ErrorMessage = styled.p`
+//   color: red;
+//   font-size: 12px;
+//   margin-top: 10px;
+// `;

@@ -6,8 +6,10 @@
     import { RiVideoAddLine } from "react-icons/ri";
     import { FaRegBell } from "react-icons/fa";
     import HeaderPop from './HeaderPop';
+    import { RxHamburgerMenu } from "react-icons/rx";
+    
 
-    const Header = () => {
+    const Header = ({ toggleYouTubeHomeLeft }) => {
         const [isProfileOpen, setIsProfileOpen] = useState(false);
         const popRef = useRef(null);
     
@@ -35,6 +37,7 @@
     return (
         <HeaderContainer>
             <Left>
+                <HamburgerIcon onClick={toggleYouTubeHomeLeft}><RxHamburgerMenu /></HamburgerIcon>
                 <LogoContainer>
                     <LogoTag>
                         <LogoImage alt='Youtube-Logo' src={youtubeLogo} />
@@ -66,7 +69,7 @@ const HeaderContainer=styled.section`
     display: flex;
     align-items: center;
     width: 100%;
-    padding:5px 50px;
+    padding:5px 30px;
     height: max-content;
     justify-content: space-between;
     position:sticky;
@@ -81,10 +84,38 @@ const Left=styled.div`
     width: 73%;
     `;
 
+    const HamburgerIcon=styled.button`
+        display: none;
+        background-color: transparent;
+        color: #f0f0f0;
+        font-size: 25px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top:13px;
+        left: 15px;
+        border: none;
+            @media (max-width: 980px) {
+                display:flex;
+                top:14px;
+                left: 6px;
+            }
+            @media (max-width: 480px) {
+                font-size: 19px;
+                top:16px;
+                left: 9px;
+        }
+    `;
+
 const LogoContainer=styled.h1`
     width: 100px;
     background-color: #0f0f0f;
     height: 30px;
+    @media (max-width: 480px) {
+        width: 70px;
+        height: 20px;
+        }
 `;
 
 const LogoTag=styled.a`
@@ -104,6 +135,9 @@ const SearchTab=styled.div`
     display: flex;
     align-items: center;
     width: 67%;
+    @media (max-width: 360px) {
+            display: none;
+        }
 `;
 
     const SearchInput=styled.input`
@@ -117,6 +151,12 @@ const SearchTab=styled.div`
         border-radius: 40px 0 0 40px;
         color: #ffffffe0;
         padding: 0 4px 0 16px;
+        @media (max-width: 480px) {
+            height:35px;
+            font-size: 12px;
+            color: #ffffffe0;
+            padding: 0 4px 0 10px;
+        }
     `;
 
     const SearchIcon=styled.button`
@@ -134,6 +174,10 @@ const SearchTab=styled.div`
         height: 40px;
         width: 74px;
         margin: 0;
+        @media (max-width: 480px) {
+            font-size: 18px;
+            height: 35px;
+        }
     `;
 
     const VoiceSearch=styled.button`
@@ -150,12 +194,20 @@ const SearchTab=styled.div`
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        @media (max-width: 480px) {
+            font-size: 18px;
+            height: 35px;
+            width:35px;
+        }
     `;
 
     const Right=styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
+    @media (max-width: 480px) {
+        gap: 1px;
+            }
     `;
 
     const Create=styled.button`
@@ -173,6 +225,9 @@ const SearchTab=styled.div`
         background: transparent;    
         &:hover{
         background-color: #ffffff14;
+        }
+        @media (max-width: 480px) {
+            font-size: 18px;
         }
     `;
 
@@ -193,6 +248,9 @@ const SearchTab=styled.div`
         &:hover{
         background-color: #ffffff14;
         }
+        @media (max-width: 480px) {
+            font-size: 18px;
+        }
     `;
     const NotificationNo=styled.span`
         cursor:pointer;
@@ -208,6 +266,16 @@ const SearchTab=styled.div`
         align-items: center;
         justify-content: center;
         right: 100px;
+        @media (max-width: 480px) {
+            width: 16px;
+            height: 11px;
+            font-size: 9px;
+            right: 61px;
+        }
+        @media (max-width: 980px) {
+            top:11px;
+            right: 84px;
+        }
     `;
 
     const Profile=styled.button`
@@ -221,6 +289,10 @@ const SearchTab=styled.div`
         border-radius: 50%;
         background-color: #808080;
         color: #ffffff;
+        @media (max-width: 480px) {
+            width: 28px;
+            height: 28px;
+        }
     `;
 
 

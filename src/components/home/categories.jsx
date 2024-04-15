@@ -84,6 +84,9 @@ const CategoriesScroll = styled.div`
     z-index: 10;
     background-color: #0f0f0f;
     display: flex;
+     @media (max-width: 480px) {
+      top: 47px;
+  }
 
 `;
 
@@ -102,7 +105,12 @@ const ScrollButton = styled.button`
       border-radius: 50%;
       background-color: #ffffff14;
     }
-
+    @media (max-width: 640px) {
+    margin:0px;
+  }
+  @media (max-width: 360px) {
+    font-size: 11px;
+}
 `;
 
 const CategoriesUl = styled.ul`
@@ -112,6 +120,14 @@ const CategoriesUl = styled.ul`
   margin: 0px 10px;
   overflow: hidden;
   scroll-behavior: smooth;
+  @media (max-width: 640px) {
+    width: 95%;
+    margin:0%;
+  }
+  @media (max-width: 360px) {
+    width: 100%;
+    gap: 5px;
+}
 `;
 
 const CategoriesA = styled.a`
@@ -119,6 +135,9 @@ const CategoriesA = styled.a`
   width: max-content;
   font-size: 14px;
   white-space: nowrap;
+  @media (max-width: 360px) {
+    font-size: 11px;
+}
 `;
 
 const CategoriesLi = styled.li`
@@ -138,4 +157,9 @@ cursor: pointer;
       color: black; 
     }
   }
+  @media (max-width: 360px) {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
   `;

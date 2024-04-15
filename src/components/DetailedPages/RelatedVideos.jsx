@@ -47,6 +47,12 @@ export default RelatedVideos
         width: 100%;
         display: flex;
         flex-direction: column;
+        @media (max-width: 768px) {
+        margin:20px 30px;
+    }
+        @media (max-width: 360px) {
+        margin:20px 15px;
+    }
     `;
 
     const ThumbNail=styled.div`
@@ -56,6 +62,13 @@ export default RelatedVideos
         margin-bottom: 10px;
         align-items: center;
         cursor:pointer;
+        @media (max-width: 768px) {
+            justify-content:stretch;
+            margin-left: 20px;
+    }
+    @media (max-width: 360px) {
+        margin-left: 10px;
+    }
     `;
 
     const VideoHover=styled.div`
@@ -151,7 +164,12 @@ export default RelatedVideos
 `;
 
     const VideoTitleContainer=styled.div`
-
+        @media (max-width: 768px) {
+                    margin-left: 20px;
+            }
+            @media (max-width: 360px) {
+                margin-left: 5px;
+    }
     `;
 
     const VideoTitle=styled.h6`
@@ -160,6 +178,9 @@ export default RelatedVideos
         color:#f1f1f1;
         overflow: hidden;
         text-overflow: ellipsis;
+        @media (max-width: 360px) {
+        font-size:15px;
+        }
         `;
 
     const ChannelName=styled.p`
