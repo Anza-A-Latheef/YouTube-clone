@@ -11,7 +11,16 @@
 
     const Header = ({ toggleYouTubeHomeLeft }) => {
         const [isProfileOpen, setIsProfileOpen] = useState(false);
+        const [usernameInitial, setUsernameInitial] = useState('');
         const popRef = useRef(null);
+
+        useEffect(() => {
+            const savedUserData = localStorage.getItem('user_data');
+            if (savedUserData) {
+                const userData = JSON.parse(savedUserData);
+                setUsernameInitial(userData.userId.charAt(0).toUpperCase());
+            }
+        }, []);
     
         useEffect(() => {
             const handleClickOutside = (event) => {
@@ -53,7 +62,7 @@
                 <Create><RiVideoAddLine /></Create>
                 <Notification><FaRegBell /></Notification>
                 <NotificationNo>9+</NotificationNo>
-                <Profile onClick={toggleProfile}>A</Profile>
+                <Profile onClick={toggleProfile}>{usernameInitial}</Profile>
             </Right>
             {isProfileOpen && <HeaderPop/>}
         </HeaderContainer>

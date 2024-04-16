@@ -1,25 +1,37 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { PiSignInLight ,PiSignOutLight} from "react-icons/pi";
 import {useNavigate } from 'react-router-dom';
 
 const HeaderPop  = forwardRef((props, ref) =>{
     const navigate=useNavigate();
+    const [userData, setUserData] = useState(null);
+
+    useEffect(() => {
+        const savedUserData = localStorage.getItem('user_data');
+        if (savedUserData) {
+          setUserData(JSON.parse(savedUserData));
+        }
+      }, []);
+
     const handleLogin=()=>{
         navigate(`/login`)}
+    const handleSignup=()=>{
+        navigate(`/signup`)}
+
   return (
     <HeaderpopContainer ref={ref}>
         <PopupTop>
-            <Profile>A</Profile>
+            <Profile>{userData ? userData.name.charAt(0) : ''}</Profile>
             <UserData>
-                <Name>Anza A</Name>
-                <UserName>@19anzaa98</UserName>
+                <Name>{userData ? userData.name : ''}</Name>
+                <UserName>{userData ? `@${userData.userId}` : ''}</UserName>
                 <ViewChannel>View your channel</ViewChannel>
             </UserData>
         </PopupTop>
       <PopupBottom>
             <SignButton onClick={()=>{handleLogin()}}><PiSignOutLight size={25}/> Sign in</SignButton>
-            <SignButton><PiSignInLight size={25}/> Sign out</SignButton>
+            <SignButton onClick={()=>{handleSignup()}}><PiSignInLight size={25}/> Sign out</SignButton>
       </PopupBottom>
     </HeaderpopContainer>
 );
