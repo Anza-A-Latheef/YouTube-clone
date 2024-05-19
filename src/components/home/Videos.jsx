@@ -1,23 +1,46 @@
-    import React from 'react'
-    import styled from 'styled-components';
-    import { BiSolidVolumeMute } from "react-icons/bi";
-    import { PiSubtitlesFill } from "react-icons/pi";
-    import videos from '../../assets/videos.json'
-    import {useNavigate } from 'react-router-dom';
-    import { HiDotsVertical } from "react-icons/hi";
-  
-    const Videos = ({activeCategory}) => {
-        const filteredVideos = activeCategory === 'All' ? videos : videos.filter(video => video.categories.includes(activeCategory));
-        const navigate=useNavigate();
-        const handleClick=(videoId,title,duration,thumbnail,channelName,views,uploaded,categories,video_url,comments,commentList)=>{
-            navigate(`/video/${videoId}`,{state:{videoId:videoId, title:title ,duration:duration,thumbnail:thumbnail,channelName:channelName,views:views,uploaded:uploaded,categories:categories,video_url:video_url,comments:comments,commentList:commentList}})
+import React from 'react';
+import styled from 'styled-components';
+import { BiSolidVolumeMute } from 'react-icons/bi';
+import { PiSubtitlesFill } from 'react-icons/pi';
+import videos from '../../assets/videos.json';
+import { useNavigate } from 'react-router-dom';
+import { HiDotsVertical } from 'react-icons/hi';
+import { differenceInDays, differenceInMonths, differenceInYears } from 'date-fns';
+
+const Videos = ({ activeCategory }) => {
+    const filteredVideos = activeCategory === 'All' ? videos : videos.filter(video => video.categories.includes(activeCategory));
+    const navigate = useNavigate();
+
+    const handleClick = (video) => {
+        navigate(`/video/${video.videoId}`, { state: { ...video } });
+    };
+
+    const getFormattedTime = (date) => {
+        const daysDifference = differenceInDays(new Date(), new Date(date));
+        const monthsDifference = differenceInMonths(new Date(), new Date(date));
+        const yearsDifference = differenceInYears(new Date(), new Date(date));
+
+        if (yearsDifference >= 1) {
+            return `${yearsDifference} year${yearsDifference > 1 ? 's' : ''} ago`;
+        } else if (monthsDifference >= 1) {
+            return `${monthsDifference} month${monthsDifference > 1 ? 's' : ''} ago`;
+        } else if (daysDifference < 7) {
+            return `${daysDifference} day${daysDifference > 1 ? 's' : ''} ago`;
+        } else if (daysDifference < 14) {
+            return `1 week ago`;
+        } else if (daysDifference < 21) {
+            return `2 weeks ago`;
+        } else {
+            return `3 weeks ago`;
         }
-        return (
+    };
+
+    return (
         <VideoContainer>
             {filteredVideos.map((video) => (
-            <ThumbNail key={video.videoId} onClick={()=>{handleClick(video.videoId,video.title,video.duration,video.thumbnail,video.channelName,video.views,video.uploaded,video.categories,video.video_url,video.comments,video.commentList)}}>
+                <ThumbNail key={video.videoId} onClick={() => handleClick(video)}>
                     <ThumbnailImgContainer>
-                        <ThumbNailImg src={video.thumbnail} alt="Thumbnail"/>
+                        <ThumbNailImg src={video.thumbnail} alt="Thumbnail" />
                         <VideoHover>
                             <VolumeIcon><BiSolidVolumeMute /></VolumeIcon>
                             <SubtitleIcon><PiSubtitlesFill /></SubtitleIcon>
@@ -26,22 +49,22 @@
                     </ThumbnailImgContainer>
                     <VideoThumbnail>
                         <ChannelProfile>
-                            <ProfileImg src={video.thumbnail}/>
+                            <ProfileImg src={video.thumbnail} />
                         </ChannelProfile>
                         <VideoTitleContainer>
                             <VideoTitle>{video.title}</VideoTitle>
                             <ChannelName>{video.channelName}</ChannelName>
-                            <VideoViews>{video.views} Views . {video.uploaded}</VideoViews>
+                            <VideoViews>{video.views} Views . {getFormattedTime(video.uploaded)}</VideoViews>
                         </VideoTitleContainer>
                         <MenuIcon><HiDotsVertical /></MenuIcon>
                     </VideoThumbnail>
-            </ThumbNail>
-        ))}
+                </ThumbNail>
+            ))}
         </VideoContainer>
     );
 }
 
-    export default Videos;
+export default Videos;
 
     const VideoContainer=styled.div`
         margin-top: 40px;

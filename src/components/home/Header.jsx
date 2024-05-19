@@ -39,10 +39,6 @@
             setIsProfileOpen(prevState => !prevState);
         };
     
-        const closeProfile = () => {
-            setIsProfileOpen(false);
-        };
-    
     return (
         <HeaderContainer>
             <Left>

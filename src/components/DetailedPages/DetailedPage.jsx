@@ -8,13 +8,13 @@ import Related from '../DetailedPages/Related'
 
 const DetailedPage = () => {
 const location=useLocation();
-const {videoId,title,duration,thumbnail,channelName,views,uploaded,categories,video_url,comments,commentList} =location.state || {};
-    return (
+const {videoId,title,duration,thumbnail,channelName,views,uploaded,categories,video_url,comments,commentList,videoLike} =location.state || {};
+    return(
         <DetailedPageContainer>
             <Header/>
             <DetailPageBottom>
                 <DetailedPageLeft>
-                    <VideoDetail videoId={videoId} duration={duration} views={views} video_url={video_url} uploaded={uploaded} categories={categories} title={title} thumbnail={thumbnail} channelName={channelName} comments={comments} commentList={commentList}/>
+                    <VideoDetail videoId={videoId} duration={duration} views={views} video_url={video_url} uploaded={uploaded} categories={categories} title={title} thumbnail={thumbnail} channelName={channelName} comments={comments} commentList={commentList} videoLike={videoLike}/>
                     <Comments videoId={videoId} views={views} uploaded={uploaded} comments={comments} commentList={commentList} thumbnail={thumbnail}/>
                 </DetailedPageLeft>
                 <DetailedPageRight>
@@ -47,6 +47,7 @@ const DetailPageBottom=styled.div`
 
     }
     `;
+    
 const DetailedPageLeft=styled.div`
     width:67%;
     overflow-y: auto;
@@ -60,18 +61,6 @@ const DetailedPageLeft=styled.div`
         width: 100%;
         overflow: visible;
     }
-    /* @media (max-width: 640px) {
-        width: 40%;
-    }
-    @media (max-width: 480px) {
-        width: 50%;
-    }
-    @media (max-width: 360px) {
-        width: 65%;
-    }
-    @media (max-width: 320px) {
-        width: 70%;
-    }  */
     `;
 
 const DetailedPageRight=styled.div`

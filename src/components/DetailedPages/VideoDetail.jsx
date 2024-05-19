@@ -1,12 +1,79 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import styled from 'styled-components'
 import { BiLike, BiDislike } from "react-icons/bi";
 import { HiDownload } from "react-icons/hi";
 import { PiShareFat } from "react-icons/pi";
 import { BsThreeDots } from "react-icons/bs";
+import { differenceInDays, differenceInMonths, differenceInYears } from 'date-fns';
 
-const VideoDetail = ({title,thumbnail,channelName,views,uploaded,video_url}) => {
-  return (
+const VideoDetail = ({title,thumbnail,channelName,views,uploaded,video_url,videoLike}) => {
+    const [showFullDescription, setShowFullDescription] = useState(false);
+    const [liked, setLiked] = useState(false);
+    const [likeCount, setLikeCount] = useState(videoLike);
+    const [subscribe, setSubscribe] = useState("Subscribe");
+    const [subscribed,setSubscribed] = useState(false);
+    const [disliked,setDisliked] = useState(false)
+
+    const toggleDescription = () => {
+      setShowFullDescription(!showFullDescription);
+    };
+
+    const subscribeFunction = () =>{
+        if(!subscribed){
+            setSubscribed(true);
+            setSubscribe("Subscribed")
+        }
+        else{
+            setSubscribed(false);
+            setSubscribe("Subscribe")
+        }
+    }
+
+    const handleLikeClick = () => {
+        if (!liked) {
+            setLiked(true);
+            setDisliked(false);
+            setLikeCount(likeCount + 1);
+        } else {
+            setLiked(false);
+            setLikeCount(likeCount - 1);
+        }
+    };
+
+    const handleDislikeClick = () =>{
+        if(!disliked){
+            setDisliked(true);
+            setLikeCount(videoLike);
+            setLiked(false);
+        }
+        else{
+            setDisliked(false);
+        }
+    };
+    
+    const getFormattedTime = (date) => {
+        const daysDifference = differenceInDays(new Date(), new Date(date));
+        const monthsDifference = differenceInMonths(new Date(), new Date(date));
+        const yearsDifference = differenceInYears(new Date(), new Date(date));
+        
+        if (yearsDifference >= 1) {
+            return `${yearsDifference} year${yearsDifference > 1 ? 's' : ''} ago`;
+        } else if (monthsDifference >= 1) {
+            return `${monthsDifference} month${monthsDifference > 1 ? 's' : ''} ago`;
+        } else if (daysDifference < 7) {
+            return `${daysDifference} days ago`;
+        } else if (daysDifference < 14) {
+            return `1 week ago`;
+        } else if (daysDifference < 21) {
+            return `2 weeks ago`;
+        } else {
+            return `3 weeks ago`;
+        }
+    };
+
+    const formattedUploadedTime = getFormattedTime(uploaded);
+    
+    return (
         <VideoDetailContainer>
             <VideoFrame>
                 <Frame src={video_url} title="YouTube video player" allow="autoplay; encrypted-media" autoPlay allowFullScreen></Frame>
@@ -21,12 +88,12 @@ const VideoDetail = ({title,thumbnail,channelName,views,uploaded,video_url}) => 
                         <ChannelTitle>{channelName}</ChannelTitle>
                         <Subscribers>{views} Subscribers</Subscribers>
                     </ChannelName>
-                    <SubscribeButton>Subscribe</SubscribeButton>
+                    <SubscribeButton onClick={subscribeFunction} subscribed={subscribed}>{subscribe}</SubscribeButton>
                 </ProfileDiv>
                 <ProfileOptions>
                     <LikeOptions>
-                        <LikeButton><BiLike size="25px" /> 39</LikeButton>
-                        <DislikeButton><BiDislike size="25px" /></DislikeButton>
+                        <LikeButton onClick={handleLikeClick} liked={liked}><BiLike size="25px" /> {likeCount}</LikeButton>
+                        <DislikeButton onClick={handleDislikeClick}  disliked={disliked}><BiDislike size="25px" /></DislikeButton>
                     </LikeOptions>
                     <ShareButton><PiShareFat size="25px" /> Share</ShareButton>
                     <DownloadButton><HiDownload size="25px" /> Download</DownloadButton>
@@ -34,10 +101,22 @@ const VideoDetail = ({title,thumbnail,channelName,views,uploaded,video_url}) => 
                 </ProfileOptions>
             </ChannelDetail>
             <DescriptionBox>
-                <ViewsNumber>{views} views  {uploaded} #family #entertainment #education #{channelName} <ChannelTagSpan>#family #entertainment #education #{channelName}</ChannelTagSpan></ViewsNumber>
-                <ChannelDescription>Are you ready to dive into new world of excitement.The channel meant for  entertainment purpose.</ChannelDescription>
-                <More>...more</More>
-            </DescriptionBox>
+                <ViewsNumber>{views} views  {formattedUploadedTime} #family #entertainment #education #{channelName} <ChannelTagSpan>#family #entertainment #education #{channelName}</ChannelTagSpan></ViewsNumber>
+                {showFullDescription ? (
+          <>
+            <ChannelDescription>
+              Are you ready to dive into the new world of excitement. The channel meant for entertainment purpose.No one meant for hurted in this video.if you like the video please like, subscribe and share with your friends.
+            </ChannelDescription>
+          </>
+        ) : (
+          <>
+            <ChannelDescription>
+              Are you ready to dive into the new world of excitement. The channel meant for entertainment purpose.
+            </ChannelDescription>
+            <More onClick={toggleDescription}>...more</More>
+          </>
+        )}
+         </DescriptionBox>
         </VideoDetailContainer>
   )
 }
@@ -165,8 +244,10 @@ const SubscribeButton=styled.button`
     border-radius: 28px;
     width: max-content;
     padding:7px 15px;
-    background-color: #fff;
-    color: #000000;
+    /* background-color: #fff; */
+    cursor: pointer;
+    background-color: ${({ subscribed }) => subscribed ? '#aaa' : '#fff'};
+    color: ${({ subscribed }) => subscribed ? '#fff' : '#000'};
     font-size: 14px;
     font-weight: 500;
     margin-left: 10px;
@@ -208,24 +289,27 @@ const LikeOptions=styled.div`
 const LikeButton=styled.button`
     padding-right: 15px;
     font-size: 13px;
-    color: #ffffff;
+    color: ${({ liked }) => liked ? '#0073e6' : '#ffffff'};
     background-color: transparent;
     border: none;
+    fill: #ffffff;
     height: min-content;
     display: flex;
     gap: 7px;
     align-items: center;
+    cursor: pointer;
     border-right: 2px solid #aaa;
   
 `;
 
 const DislikeButton=styled.button`
-    color:#ffffff;
+    color: ${({ disliked }) => disliked ? '#0073e6' : '#ffffff'};
     background-color: transparent;
     border: none;
     display: flex;
     justify-content: center;
     font-size: 15px;
+    cursor: pointer;
     padding-left: 10px;
 `;
 
@@ -305,5 +389,6 @@ const More=styled.p`
     font-size: 13px;
     font-weight: 600;
     color:#ffffff;
+    cursor: pointer;
 `;
 
