@@ -73,6 +73,9 @@ export default Videos;
         grid-template-columns: 3fr 3fr 3fr;
         overflow: hidden;
 
+        @media (max-width: 1080px) {
+            grid-template-columns: 2fr 2fr ;
+            }
         @media (max-width: 1024px) {
             grid-template-columns: 2fr 2fr ;
             }
@@ -82,12 +85,12 @@ export default Videos;
         @media (max-width: 768px) {
             grid-template-columns: 2fr 2fr ;
             }
-        @media (max-width: 480px) {
+        @media (max-width: 540px) {
             display:flex;
             flex-direction: column;
             align-items: center;
             }
-    `;
+         `;
 
     const ThumbNail=styled.div`
         margin-bottom: 40px;
@@ -147,6 +150,10 @@ export default Videos;
         @media (max-width: 768px) {
             width: 280px;
             height: 163px;
+    }
+    @media (max-width: 540px) {
+        width: 428px;
+        height: 237px;
     }
     @media (max-width: 480px) {
             width: 343px;
@@ -242,7 +249,9 @@ export default Videos;
 
     const VideoTitleContainer=styled.div`
         max-width: 263px;
-        
+        @media (max-width: 540px) {
+            max-width: 350px;
+        }
     `;
 
     const VideoTitle=styled.h6`

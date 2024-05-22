@@ -64,6 +64,9 @@ export default Home
                 border-radius: 10px;
                 height: 50px;
             }
+            @media (max-width: 1080px) {
+                width: 20%;
+            }
             @media (max-width: 1024px) {
                 width: 21%;
             }
@@ -72,10 +75,13 @@ export default Home
                 display: ${props => props.isVisible ? 'block' : 'none'};
             }
             @media (max-width: 768px) {
-                width: 30%;
+                width: 32%;
             }
             @media (max-width: 640px) {
                 width: 40%;
+            }
+            @media (max-width: 540px) {
+                width: 45%;
             }
             @media (max-width: 480px) {
                 width: 50%;
@@ -92,6 +98,10 @@ export default Home
     const YoutubeHomeRight=styled.section`
         width:82%;
         margin-left:18% ;
+        @media (max-width: 1080px) {
+            margin-left:23% ;
+            width: 75%;
+        }
         @media (max-width: 1024px) {
             margin-left:23% ;
                 width: 75%;

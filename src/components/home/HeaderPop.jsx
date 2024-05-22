@@ -5,7 +5,8 @@ import {useNavigate } from 'react-router-dom';
 
 const HeaderPop  = forwardRef((props, ref) =>{
     const navigate=useNavigate();
-    const [userData, setUserData] = useState(null);
+    const defaultUserData = { name: 'User', userId: 'user123' };
+    const [userData, setUserData] = useState(defaultUserData);
 
     useEffect(() => {
         const savedUserData = localStorage.getItem('user_data');

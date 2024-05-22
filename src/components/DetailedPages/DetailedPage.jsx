@@ -54,10 +54,17 @@ const DetailedPageLeft=styled.div`
     &::-webkit-scrollbar {
         display: none; 
     }
+    @media (max-width: 1080px) {
+        margin-left: 30px;
+    }
+    @media (max-width: 980px) {
+        margin-left: 15px;
+    }
     @media (max-width: 1024px) {
         width:70%;
     }
     @media (max-width: 768px) {
+        margin-left: 0;
         width: 100%;
         overflow: visible;
     }
