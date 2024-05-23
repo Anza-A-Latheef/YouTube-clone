@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from '../App';
+import { UserContext } from '../../App';
 import { Link, useNavigate } from 'react-router-dom';
-import youtubeLogo from '../assets/images/youtube.jpg';
+import youtubeLogo from '../../assets/images/youtube.jpg';
 import styled from 'styled-components';
 
 const Signup = () => {

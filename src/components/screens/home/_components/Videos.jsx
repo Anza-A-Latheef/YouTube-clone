@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { BiSolidVolumeMute } from 'react-icons/bi';
 import { PiSubtitlesFill } from 'react-icons/pi';
-import videos from '../../assets/videos.json';
+import videos from '../../../../assets/videos.json';
 import { useNavigate } from 'react-router-dom';
 import { HiDotsVertical } from 'react-icons/hi';
 import { differenceInDays, differenceInMonths, differenceInYears } from 'date-fns';

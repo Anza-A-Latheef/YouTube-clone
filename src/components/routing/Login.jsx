@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import youtubeLogo from '../assets/images/youtube.jpg';
+import youtubeLogo from '../../assets/images/youtube.jpg';
 import { Link, useNavigate } from 'react-router-dom';
-import { UserContext } from '../App';
+import { UserContext } from '../../App';
 
 const Login = () => {
   const [useremail, setUseremail] = useState('');

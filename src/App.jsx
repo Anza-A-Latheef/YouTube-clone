@@ -1,10 +1,10 @@
 import React, { useState, useEffect, createContext } from 'react'; 
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Home from './components/home/Home';
-import DetailedPage from '../src/components/DetailedPages/DetailedPage'
-import Login from './components/Login';
-import Signup from './components/Signup';
+import Home from './components/screens/home/Home';
+import DetailedPage from '../src/components/screens/DetailedPages/DetailedPage'
+import Login from './components/routing/Login';
+import Signup from './components/routing/Signup';
 
 export const UserContext = createContext();
 

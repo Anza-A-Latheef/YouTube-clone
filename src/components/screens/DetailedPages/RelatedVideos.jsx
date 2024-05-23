@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import videos from '../../assets/videos.json'
+import videos from '../../../assets/videos.json'
 import {useNavigate } from 'react-router-dom';
 import { HiDotsVertical } from "react-icons/hi";
 import { MdOutlineWatchLater } from "react-icons/md";

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useLocation} from 'react-router-dom';
-import Header from '../home/Header'
+import Header from '../../includes/Header'
 import Comments from '../DetailedPages/Comments'
 import VideoDetail from '../DetailedPages/VideoDetail'
 import Related from '../DetailedPages/Related'
