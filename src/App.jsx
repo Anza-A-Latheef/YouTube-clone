@@ -2,12 +2,11 @@ import React, { useState, useEffect, createContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './components/screens/home/Home';
-import DetailedPage from '../src/components/screens/DetailedPages/DetailedPage'
+import DetailedPage from '../src/components/screens/DetailedPages/DetailedPage';
 import Login from './components/routing/Login';
 import Signup from './components/routing/Signup';
 
 export const UserContext = createContext();
-
 
 function App() {
   const [userData,setUserData]=useState({});

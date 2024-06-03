@@ -1,7 +1,7 @@
     import React ,{useRef ,useEffect,useState} from 'react'
     import styled from 'styled-components'
     import { FaChevronRight , FaChevronLeft} from "react-icons/fa6";
-    import RelatedVideos from './RelatedVideos';
+    import RelatedVideos from '../_components/RelatedVideos';
 
     const categories = [
         'All', 'Music', 'Fitness', 'Game shows', 'Travel','Art', 'Photography', 'Dances','Technologies',

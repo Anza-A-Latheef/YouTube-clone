@@ -11,7 +11,7 @@ import { ImNewspaper } from "react-icons/im";
 import { BsLightbulb } from "react-icons/bs";
 import { CiSettings } from "react-icons/ci";
 import { IoMdHelpCircleOutline } from 'react-icons/io';
-import videos from '../../assets/videos.json'
+import videos from '../../../assets/videos.json'
 
 
 const NavMenu = () => {
@@ -120,22 +120,22 @@ return (
             <YouHead>More from YouTube</YouHead>
             <YouTubeItemUl>
                 <YouTubeItemLi>
-                    <MoreLogo><MoreLogoImg src={require("../../assets/images/youtubelogo.png")} alt="asadf"/></MoreLogo>
+                    <MoreLogo><MoreLogoImg src={require("../../../assets/images/youtubelogo.png")} alt="asadf"/></MoreLogo>
 
                     <NavMenuP>YouTube Premium</NavMenuP>
                 </YouTubeItemLi>
                 <YouTubeItemLi>
-                    <MoreLogo><MoreLogoImg src={require("../../assets/images/youtubelogo.png")} alt="asadf"/></MoreLogo>
+                    <MoreLogo><MoreLogoImg src={require("../../../assets/images/youtubelogo.png")} alt="asadf"/></MoreLogo>
 
                     <NavMenuP>YouTube Studio</NavMenuP>
                 </YouTubeItemLi>
                 <YouTubeItemLi>
-                    <MoreLogo><MoreLogoImg src={require("../../assets/images/youtubelogo.png")} alt="asadf"/></MoreLogo>
+                    <MoreLogo><MoreLogoImg src={require("../../../assets/images/youtubelogo.png")} alt="asadf"/></MoreLogo>
 
                     <NavMenuP>YouTube Music</NavMenuP>
                 </YouTubeItemLi>
                 <YouTubeItemLi>
-                    <MoreLogo><MoreLogoImg src={require("../../assets/images/youtubelogo.png")} alt="asadf"/></MoreLogo>
+                    <MoreLogo><MoreLogoImg src={require("../../../assets/images/youtubelogo.png")} alt="asadf"/></MoreLogo>
 
                     <NavMenuP>YouTube Kids</NavMenuP>
                 </YouTubeItemLi>

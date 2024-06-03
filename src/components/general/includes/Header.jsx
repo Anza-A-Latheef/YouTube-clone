@@ -1,6 +1,6 @@
     import React, { useState, useRef, useEffect } from 'react';
     import styled from 'styled-components'
-    import youtubeLogo from '../../assets/images/youtube.jpg'
+    import youtubeLogo from '../../../assets/images/youtube.jpg'
     import { CiSearch } from "react-icons/ci";
     import { FaMicrophone } from "react-icons/fa6";
     import { RiVideoAddLine } from "react-icons/ri";

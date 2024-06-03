@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import Header from '../../includes/Header.jsx';
+import Header from '../../general/includes/Header.jsx';
 import styled from 'styled-components';
-import NavMenu from '../../includes/NavMenu.jsx';
+import NavMenu from '../../general/includes/NavMenu.jsx';
 import Categories from '../home/_components/categories.jsx';
 import Videos from '../home/_components/Videos.jsx';
 

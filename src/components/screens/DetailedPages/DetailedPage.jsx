@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useLocation} from 'react-router-dom';
-import Header from '../../includes/Header'
-import Comments from '../DetailedPages/Comments'
-import VideoDetail from '../DetailedPages/VideoDetail'
-import Related from '../DetailedPages/Related'
+import Header from '../../general/includes/Header'
+import Comments from '../DetailedPages/_components/Comments'
+import VideoDetail from '../DetailedPages/_components/VideoDetail'
+import Related from '../DetailedPages/_components/Related'
 
 const DetailedPage = () => {
 const location=useLocation();
