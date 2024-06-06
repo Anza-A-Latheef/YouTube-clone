@@ -7,11 +7,11 @@
     import { FaRegBell } from "react-icons/fa";
     import HeaderPop from './HeaderPop';
     import { RxHamburgerMenu } from "react-icons/rx";
-    
 
-    const Header = ({ toggleYouTubeHomeLeft }) => {
+    const Header = ({ toggleYouTubeHomeLeft,handleSearch}) => {
         const [isProfileOpen, setIsProfileOpen] = useState(false);
         const [usernameInitial, setUsernameInitial] = useState('U');
+        const [searchQuery, setSearchQuery] = useState('');
         const popRef = useRef(null);
 
         useEffect(() => {
@@ -38,7 +38,15 @@
         const toggleProfile = () => {
             setIsProfileOpen(prevState => !prevState);
         };
+
+        const handleInputChange = (e) => {
+            setSearchQuery(e.target.value);
+        };
     
+        const handleSearchClick = () => {
+            handleSearch(searchQuery);
+        };
+
     return (
         <HeaderContainer>
             <Left>
@@ -49,8 +57,8 @@
                     </LogoTag>
                 </LogoContainer>
                 <SearchTab>
-                    <SearchInput type="text" placeholder='Search'/>
-                    <SearchIcon><CiSearch /></SearchIcon>
+                    <SearchInput type="text" placeholder='Search'  value={searchQuery} onChange={handleInputChange}/>
+                    <SearchIcon onClick={handleSearch}><CiSearch /></SearchIcon>
                     <VoiceSearch><FaMicrophone /></VoiceSearch>
                 </SearchTab>
             </Left>

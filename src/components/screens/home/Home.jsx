@@ -12,9 +12,13 @@ const Home = () => {
         setIsYouTubeHomeLeftOpen(prevState => !prevState);
     };
 
+    const handleSearch = (query) => {
+        console.log('Search query:', query);
+    };
+
     return (
         <HomeContainer>
-            <Header toggleYouTubeHomeLeft={toggleYouTubeHomeLeft} />
+            <Header toggleYouTubeHomeLeft={toggleYouTubeHomeLeft} handleSearch={handleSearch}/>
             <YoutubeHome>
                 <YoutubeHomeLeft isVisible={isYouTubeHomeLeftOpen}>
                     <NavMenu/>

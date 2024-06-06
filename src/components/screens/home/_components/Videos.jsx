@@ -7,8 +7,14 @@ import { useNavigate } from 'react-router-dom';
 import { HiDotsVertical } from 'react-icons/hi';
 import { differenceInDays, differenceInMonths, differenceInYears } from 'date-fns';
 
-const Videos = ({ activeCategory }) => {
-    const filteredVideos = activeCategory === 'All' ? videos : videos.filter(video => video.categories.includes(activeCategory));
+const Videos = ({activeCategory, searchQuery = ''}) => {
+    // const filteredVideos = activeCategory === 'All' ? videos : videos.filter(video => video.categories.includes(activeCategory));
+    const filteredVideos = videos.filter(video => {
+        const matchesCategory = activeCategory === 'All' || video.categories.includes(activeCategory);
+        const matchesSearchQuery = video.title.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && matchesSearchQuery;
+    });
+    
     const navigate = useNavigate();
 
     const handleClick = (video) => {
@@ -97,33 +103,33 @@ export default Videos;
     `;
 
     const VideoHover=styled.div`
-    background-color:#000000cc;
-    align-items: center;
-    justify-content: space-between;
-    padding: 4px 5px;
-    width: 70px;
-    border-radius: 4px;
-    margin: 5px 5px 0px 0px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: none;
+        background-color:#000000cc;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4px 5px;
+        width: 70px;
+        border-radius: 4px;
+        margin: 5px 5px 0px 0px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: none;
     `;
 
     const VideoDuration=styled.p`
-    background-color: #000000cc;
-    padding: 3px 4px;
-    border-radius: 4px;
-    font-weight:500;
-    line-height:1.2rem;
-    letter-spacing: .5px;
-    font-size: 13px;
-    margin: 0px 5px 5px 0px;
-    position: absolute;
-    color: #ffffff;
-    bottom: 0;
-    right: 0;
-    `;
+        background-color: #000000cc;
+        padding: 3px 4px;
+        border-radius: 4px;
+        font-weight:500;
+        line-height:1.2rem;
+        letter-spacing: .5px;
+        font-size: 13px;
+        margin: 0px 5px 5px 0px;
+        position: absolute;
+        color: #ffffff;
+        bottom: 0;
+        right: 0;
+        `;
 
     const ThumbnailImgContainer=styled.div`
         border-radius: 20px;
@@ -176,21 +182,21 @@ export default Videos;
     `;
 
     const VolumeIcon=styled.button`
-    color: #ffffff;
-    border: none;
-    border-right: 1px solid gainsboro;
-    background-color: transparent;
-    font-size: 18px;
-    padding-right: 11px;
-    height: 20px;
+        color: #ffffff;
+        border: none;
+        border-right: 1px solid gainsboro;
+        background-color: transparent;
+        font-size: 18px;
+        padding-right: 11px;
+        height: 20px;
     `;
 
     const SubtitleIcon=styled.button`
-    height: 20px;
-    border: none;
-    color: #ffffff;
-    background-color: transparent;
-    font-size: 18px;
+        height: 20px;
+        border: none;
+        color: #ffffff;
+        background-color: transparent;
+        font-size: 18px;
     `;
 
     const MenuIcon=styled.button`
