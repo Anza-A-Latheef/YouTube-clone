@@ -1,4 +1,4 @@
-    import React, { useState, useRef, useEffect } from 'react';
+    import React, { useState, useRef, useEffect,useContext } from 'react';
     import styled from 'styled-components'
     import youtubeLogo from '../../../assets/images/youtube.jpg'
     import { CiSearch } from "react-icons/ci";
@@ -7,20 +7,34 @@
     import { FaRegBell } from "react-icons/fa";
     import HeaderPop from './HeaderPop';
     import { RxHamburgerMenu } from "react-icons/rx";
+    import { SearchContext } from '../includes/SearchContext';
 
-    const Header = ({ toggleYouTubeHomeLeft,handleSearch}) => {
+    const Header = ({ toggleYouTubeHomeLeft}) => {
         const [isProfileOpen, setIsProfileOpen] = useState(false);
         const [usernameInitial, setUsernameInitial] = useState('U');
-        const [searchQuery, setSearchQuery] = useState('');
         const popRef = useRef(null);
+        const { searchQuery,setSearchQuery, updateSearchQuery , setIsSearchActive} = useContext(SearchContext);
+        const [userData, setUserData] = useState("");
 
-        useEffect(() => {
-            const savedUserData = localStorage.getItem('user_data');
-            if (savedUserData) {
-                const userData = JSON.parse(savedUserData);
-                setUsernameInitial(userData.userId.charAt(0).toUpperCase());
-            }
-        }, []);
+    useEffect(() => {
+        const savedUserData = localStorage.getItem('user_data');
+        const savedUserName = localStorage.getItem('username');
+        if (savedUserName) {
+          setUserData(savedUserName);
+        }
+      }, []);
+
+        const handleSearch = () => {
+            setIsSearchActive(true);
+        };
+    
+        // useEffect(() => {
+        //     const savedUserData = localStorage.getItem('user_data');
+        //     if (savedUserData) {
+        //         const userData = JSON.parse(savedUserData);
+        //         setUsernameInitial(userData.userId.charAt(0).toUpperCase());
+        //     }
+        // }, []);
     
         useEffect(() => {
             const handleClickOutside = (event) => {
@@ -40,12 +54,8 @@
         };
 
         const handleInputChange = (e) => {
-            setSearchQuery(e.target.value);
-        };
-    
-        const handleSearchClick = () => {
-            handleSearch(searchQuery);
-        };
+            updateSearchQuery(e.target.value);
+        };    
 
     return (
         <HeaderContainer>
@@ -57,7 +67,7 @@
                     </LogoTag>
                 </LogoContainer>
                 <SearchTab>
-                    <SearchInput type="text" placeholder='Search'  value={searchQuery} onChange={handleInputChange}/>
+                    <SearchInput type="text" placeholder='Search'  value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/>
                     <SearchIcon onClick={handleSearch}><CiSearch /></SearchIcon>
                     <VoiceSearch><FaMicrophone /></VoiceSearch>
                 </SearchTab>
@@ -66,7 +76,7 @@
                 <Create><RiVideoAddLine /></Create>
                 <Notification><FaRegBell /></Notification>
                 <NotificationNo>9+</NotificationNo>
-                <Profile onClick={toggleProfile}>{usernameInitial}</Profile>
+                <Profile onClick={toggleProfile}>{userData.charAt(0)}</Profile>
             </Right>
             {isProfileOpen && <HeaderPop/>}
         </HeaderContainer>
@@ -305,6 +315,7 @@ const SearchTab=styled.div`
         justify-content: center;
         border-radius: 50%;
         background-color: #808080;
+        text-transform: capitalize;
         color: #ffffff;
         @media (max-width: 540px) {
             width: 28px;

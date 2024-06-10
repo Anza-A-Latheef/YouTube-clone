@@ -25,7 +25,7 @@ const Home = () => {
                 </YoutubeHomeLeft>
                 <YoutubeHomeRight>
                     <Categories/>
-                    <Videos/>
+                    <Videos />
                 </YoutubeHomeRight>
             </YoutubeHome>
         </HomeContainer>
@@ -58,11 +58,9 @@ export default Home
             &::-webkit-scrollbar {
                 width: 7px;
             }
-
             &::-webkit-scrollbar-track {
                 background-color: #0f0f0f
             }
-        
             &::-webkit-scrollbar-thumb {
                 background: #555; 
                 border-radius: 10px;
@@ -97,11 +95,11 @@ export default Home
                 width: 70%;
             }
         `;
-
-       
     const YoutubeHomeRight=styled.section`
         width:82%;
         margin-left:18% ;
+        min-height: 92vh;
+
         @media (max-width: 1080px) {
             margin-left:23% ;
             width: 75%;

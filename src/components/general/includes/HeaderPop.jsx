@@ -5,34 +5,35 @@ import {useNavigate } from 'react-router-dom';
 
 const HeaderPop  = forwardRef((props, ref) =>{
     const navigate=useNavigate();
-    const defaultUserData = { name: 'User', userId: 'user123' };
-    const [userData, setUserData] = useState(defaultUserData);
+    const [userData, setUserData] = useState("");
 
     useEffect(() => {
         const savedUserData = localStorage.getItem('user_data');
-        if (savedUserData) {
-          setUserData(JSON.parse(savedUserData));
+        const savedUserName = localStorage.getItem('username');
+        if (savedUserName) {
+          setUserData(savedUserName);
         }
       }, []);
 
     const handleLogin=()=>{
-        navigate(`/login`)}
-    const handleSignup=()=>{
-        navigate(`/signup`)}
+        localStorage.clear();
+        navigate(`/login`)
+    }
+   
 
   return (
     <HeaderpopContainer ref={ref}>
         <PopupTop>
-            <Profile>{userData ? userData.name.charAt(0) : ''}</Profile>
+            <Profile>{userData.charAt(0)}</Profile>
             <UserData>
-                <Name>{userData ? userData.name : ''}</Name>
-                <UserName>{userData ? `@${userData.userId}` : ''}</UserName>
+                {/* <Name>{userData ? userData.name : ''}</Name> */}
+                <UserName>@{userData}</UserName>
                 <ViewChannel>View your channel</ViewChannel>
             </UserData>
         </PopupTop>
       <PopupBottom>
-            <SignButton onClick={()=>{handleLogin()}}><PiSignOutLight size={25}/> Sign in</SignButton>
-            <SignButton onClick={()=>{handleSignup()}}><PiSignInLight size={25}/> Sign out</SignButton>
+            {/* <SignButton onClick={()=>{handleLogin()}}><PiSignOutLight size={25}/> Sign in</SignButton> */}
+            <SignButton onClick={()=>{handleLogin()}}><PiSignInLight size={25}/> Sign out</SignButton>
       </PopupBottom>
     </HeaderpopContainer>
 );
@@ -68,6 +69,7 @@ export default HeaderPop
             border-radius: 50%;
             background-color: #808080;
             color: #ffffff;
+            text-transform: capitalize;
         `;
 
     const UserData=styled.div`

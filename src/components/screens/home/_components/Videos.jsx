@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import styled from 'styled-components';
 import { BiSolidVolumeMute } from 'react-icons/bi';
 import { PiSubtitlesFill } from 'react-icons/pi';
@@ -6,14 +6,11 @@ import videos from '../../../../assets/videos.json';
 import { useNavigate } from 'react-router-dom';
 import { HiDotsVertical } from 'react-icons/hi';
 import { differenceInDays, differenceInMonths, differenceInYears } from 'date-fns';
+import { SearchContext } from '../../../general/includes/SearchContext';
 
-const Videos = ({activeCategory, searchQuery = ''}) => {
-    // const filteredVideos = activeCategory === 'All' ? videos : videos.filter(video => video.categories.includes(activeCategory));
-    const filteredVideos = videos.filter(video => {
-        const matchesCategory = activeCategory === 'All' || video.categories.includes(activeCategory);
-        const matchesSearchQuery = video.title.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesCategory && matchesSearchQuery;
-    });
+const Videos = ({activeCategory}) => {
+    // const { searchQuery } = useContext(SearchContext);
+    const { searchQuery, isSearchActive } = useContext(SearchContext);
     
     const navigate = useNavigate();
 
@@ -40,6 +37,14 @@ const Videos = ({activeCategory, searchQuery = ''}) => {
             return `3 weeks ago`;
         }
     };
+
+    const filteredVideos = isSearchActive 
+    ? videos.filter(video => {
+        const matchesCategory = activeCategory === 'All' || video.categories.includes(activeCategory);
+        const matchesSearch = video.title.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && matchesSearch;
+    })
+    : videos.filter(video => activeCategory === 'All' || video.categories.includes(activeCategory));
 
     return (
         <VideoContainer>
@@ -78,6 +83,7 @@ export default Videos;
         display: grid;
         grid-template-columns: 3fr 3fr 3fr;
         overflow: hidden;
+        /* background-color: black; */
 
         @media (max-width: 1080px) {
             grid-template-columns: 2fr 2fr ;
@@ -100,6 +106,8 @@ export default Videos;
 
     const ThumbNail=styled.div`
         margin-bottom: 40px;
+        /* background-color: black; */
+
     `;
 
     const VideoHover=styled.div`

@@ -12,12 +12,13 @@ const Comments = ({ thumbnail, comments, commentList }) => {
     const [sortOption, setSortOption] = useState('newUploaded');
     const [sortedComments, setSortedComments] = useState(commentList ?? []);
     const [newComment, setNewComment] = useState('');
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState('');
 
     useEffect(() => {
         const savedUserData = localStorage.getItem('user_data');
-        if (savedUserData) {
-            setUser(JSON.parse(savedUserData));
+        const savedUserName = localStorage.getItem('username');
+        if (savedUserName) {
+            setUser(savedUserName);
         }
     }, []);
 
@@ -28,12 +29,12 @@ const Comments = ({ thumbnail, comments, commentList }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (!user) {
-            alert("Please log in to comment.");
-            return;
-        }
+        // if (!user) {
+        //     alert("Please log in to comment.");
+        //     return;
+        // }
         const newCommentData = {
-            user: user.name,
+            user: user,
             posted: new Date(),
             comment: newComment,
             like: 0
@@ -110,7 +111,7 @@ useEffect(() => {
             </CommentsHead>
   <AddComment>
             <CommentImg>
-                <CommenterProfile>{user ? user.name.charAt(0) : 'U'}</CommenterProfile>
+                <CommenterProfile>{user ? user.charAt(0) : 'U'}</CommenterProfile>
             </CommentImg>
             <CommentForm>
             <CommentInput 
@@ -125,7 +126,8 @@ useEffect(() => {
             {/* {sortedComments.map((comment, index) => ( */}
         {sortedComments && sortedComments.map((comment, index) => (
                 <CommentsArea key={index}>
-                    <UserProfile color={colors[Math.floor(Math.random() * colors.length)]}>{comment.user.charAt(0)}</UserProfile>
+                    <UserProfile color={colors[index % 5]}>{comment.user.charAt(0)}</UserProfile>
+                    {/* <UserProfile color={colors[Math.floor(Math.random() * colors.length)]}>{comment.user.charAt(0)}</UserProfile> */}
                     <CommentDetails>
                         <UserName>@{comment.user} <UserNameSpan>{getFormattedTime(comment.posted)}</UserNameSpan></UserName>
                         <Comment>{comment.comment}</Comment>
@@ -318,6 +320,7 @@ const CommentImg= styled.div`
 const CommenterProfile= styled.div`
     cursor: pointer;
     display: flex;
+    text-transform: capitalize;
     align-items: center;
     justify-content: center;
     border-radius: 50%;

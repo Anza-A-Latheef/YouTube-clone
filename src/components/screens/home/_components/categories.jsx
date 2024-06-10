@@ -84,7 +84,7 @@ const CategoriesScroll = styled.div`
     z-index: 10;
     background-color: #0f0f0f;
     display: flex;
-     @media (max-width: 480px) {
+     @media (max-width: 540px) {
       top: 47px;
   }
 
