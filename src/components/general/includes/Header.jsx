@@ -11,7 +11,6 @@
 
     const Header = ({ toggleYouTubeHomeLeft}) => {
         const [isProfileOpen, setIsProfileOpen] = useState(false);
-        const [usernameInitial, setUsernameInitial] = useState('U');
         const popRef = useRef(null);
         const { searchQuery,setSearchQuery, updateSearchQuery , setIsSearchActive} = useContext(SearchContext);
         const [userData, setUserData] = useState("");
@@ -27,14 +26,6 @@
         const handleSearch = () => {
             setIsSearchActive(true);
         };
-    
-        // useEffect(() => {
-        //     const savedUserData = localStorage.getItem('user_data');
-        //     if (savedUserData) {
-        //         const userData = JSON.parse(savedUserData);
-        //         setUsernameInitial(userData.userId.charAt(0).toUpperCase());
-        //     }
-        // }, []);
     
         useEffect(() => {
             const handleClickOutside = (event) => {

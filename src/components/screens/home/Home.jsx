@@ -66,7 +66,7 @@ export default Home
                 border-radius: 10px;
                 height: 50px;
             }
-            @media (max-width: 1080px) {
+            @media (max-width: 1100px) {
                 width: 20%;
             }
             @media (max-width: 1024px) {
@@ -100,7 +100,7 @@ export default Home
         margin-left:18% ;
         min-height: 92vh;
 
-        @media (max-width: 1080px) {
+        @media (max-width: 1100px) {
             margin-left:23% ;
             width: 75%;
         }
@@ -111,5 +111,8 @@ export default Home
             @media (max-width: 980px) {
                 width: 95%;
                 margin:2% 5%;
+            }
+            @media (max-width: 480px) {
+                margin:3%;
             }
 `;

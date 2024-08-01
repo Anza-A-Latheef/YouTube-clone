@@ -26,13 +26,11 @@ const HeaderPop  = forwardRef((props, ref) =>{
         <PopupTop>
             <Profile>{userData.charAt(0)}</Profile>
             <UserData>
-                {/* <Name>{userData ? userData.name : ''}</Name> */}
                 <UserName>@{userData}</UserName>
                 <ViewChannel>View your channel</ViewChannel>
             </UserData>
         </PopupTop>
       <PopupBottom>
-            {/* <SignButton onClick={()=>{handleLogin()}}><PiSignOutLight size={25}/> Sign in</SignButton> */}
             <SignButton onClick={()=>{handleLogin()}}><PiSignInLight size={25}/> Sign out</SignButton>
       </PopupBottom>
     </HeaderpopContainer>
@@ -50,6 +48,17 @@ export default HeaderPop
         background-color: #333333;
         border-radius: 20px;
         padding: 20px;
+        @media (max-width: 1440px) {
+            top: 49px;
+            right: 19px;
+        }
+        @media (max-width: 640px) {
+            width:275px;
+        }
+        @media (max-width: 360px) {
+            padding:10px;
+            width: 210px;
+        }
     `;
 
     const PopupTop=styled.div`

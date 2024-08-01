@@ -48,8 +48,8 @@ export default RelatedVideos
         display: flex;
         flex-direction: column;
         @media (max-width: 768px) {
-        margin:20px 30px;
-    }
+        margin:20px 0px;
+        }
         @media (max-width: 360px) {
         margin:20px 15px;
     }

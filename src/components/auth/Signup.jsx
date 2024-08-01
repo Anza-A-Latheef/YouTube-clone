@@ -19,15 +19,14 @@
         navigate('/login');
     };
 
-    
     const handleSignup = (e) => {
         setMessage("");
         e.preventDefault();
-        let form = new FormData()
-        form.append('email',useremail)
-        form.append('password',password)
-        form.append('name',name)
-        form.append('userId',userId)
+        let form = new FormData();
+        form.append('email',useremail);
+        form.append('password',password);
+        form.append('name',name);
+        form.append('userId',userId);
         axios
         .post(`${ BASE_URL }/auth/register/`,form)
         .then((response)=>{
@@ -47,21 +46,11 @@
             if(error.response.status==401){
             setMessage(error.response.data.detail);
             }
+            else {
+                setMessage("An unexpected error occurred. Please try again.");
+              }
         });
     };
-
-    // const handleSignup = () => {
-    //   const userData = {
-    //     email: useremail,
-    //     password: password,
-    //     name: name,
-    //     userId: userId
-    //   };
-    //   localStorage.setItem('user_data', JSON.stringify(userData));
-    //   updateUserData({ type: 'LOGIN', payload: userData });
-    //   navigate('/');
-    // };
-
     return (
         <LoginContainer>
         <HeaderContainer>
@@ -76,19 +65,19 @@
             <SignInForm onSubmit={handleSignup}>
             <InputContainer>
                 <SiginLabel>Email</SiginLabel>
-                <SiginInput type="email" value={useremail} onChange={(e) => setUseremail(e.target.value)} placeholder="Email" />
+                <SiginInput type="email" value={useremail} onChange={(e) => setUseremail(e.target.value)} placeholder="Email" required  maxLength={40}/>
             </InputContainer>
             <InputContainer>
                 <SiginLabel>Your Name</SiginLabel>
-                <SiginInput value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder="Your Name" />
+                <SiginInput value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder="Your Name" required  maxLength={30}/>
             </InputContainer>
             <InputContainer>
                 <SiginLabel>Username</SiginLabel>
-                <SiginInput value={userId} onChange={(e) => setUserId(e.target.value)} type="text" placeholder="Username" />
+                <SiginInput value={userId} onChange={(e) => setUserId(e.target.value)} type="text" placeholder="Username" required  maxLength={30}/>
             </InputContainer>
             <InputContainer>
                 <SiginLabel>Password</SiginLabel>
-                <SiginInput value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" />
+                <SiginInput value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password"  maxLength={15}/>
             </InputContainer>
             {message && <ErrorMessage>{message}</ErrorMessage>}
             <SignInButton type="submit">Sign Up</SignInButton>
@@ -107,11 +96,14 @@
     export default Signup;
 
     const LoginContainer = styled.div`
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #0f0f0f;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #0f0f0f;
+        @media (max-width: 1280px) {
+            height: max-content;
+        }
     `;
 
     const LoginContent = styled.div`
@@ -127,6 +119,9 @@
     color: #f0f0f0;
     font-size: 25px;
     line-height: 5rem;
+    @media (max-width: 360px) {
+        font-size: 22px;
+    }
     `;
 
     const SignInForm = styled.form`
@@ -135,6 +130,9 @@
     border-radius: 20px;
     display: flex;
     flex-direction: column;
+    @media (max-width: 360px) {
+        padding: 20px;
+    }
     `;
 
     const InputContainer = styled.div``;
@@ -152,6 +150,12 @@
     padding: 10px;
     margin-bottom: 15px;
     border-radius: 10px;
+    @media (max-width: 360px) {
+        width: 275px;
+    }
+    @media (max-width: 320px) {
+        width: 250px;
+    }
     `;
 
     const SignInButton = styled.button`
@@ -202,6 +206,10 @@
     width: 150px;
     background-color: #0f0f0f;
     height: 50px;
+    @media (max-width: 360px) {
+        width: 100px;
+        height: 38px;
+    }
     `;
 
     const LogoTag = styled.a`

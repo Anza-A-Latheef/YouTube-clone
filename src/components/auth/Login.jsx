@@ -7,46 +7,43 @@
     import { BASE_URL } from '../../assets/axiosConfig';
 
     const Login = () => {
-        const [useremail, setUseremail] = useState('');
         const [username, setUserName] = useState('');
         const [password, setPassword] = useState('');
         const [errorMessage, setErrorMessage] = useState('');
-        const [message, setMessage] = useState('');
         const navigate = useNavigate();
         const { updateUserData } = useContext(UserContext);
 
     const handleSignup = () => {
         navigate('/signup');
     };
-    // const handleLogin = () => {
-    //     const userData = JSON.parse(localStorage.getItem('user_data'));
-    //     if (userData && userData.email === useremail && userData.password === password) {
-    //     updateUserData({ type: 'LOGIN', payload: userData });
-    //     navigate('/');
-    //     } else {
-    //     setErrorMessage('Invalid email or password');
-    //     }
-    // };
-
+ 
     const handleSubmit = (e) => {
-        setMessage("");
         e.preventDefault();
+        setErrorMessage("");
+    
+        if (!username || !password) {
+            setErrorMessage("Username and Password are required.");
+            return;
+        }
+    
         axios
-        .post(`${ BASE_URL }`,{username,password})
-        .then((response)=>{
-            let data=response.data;
-            localStorage.setItem("token",JSON.stringify(data.token));
-            localStorage.setItem("username",username);
-            updateUserData({type:"LOGIN",payload:data});
-            console.log(data.token);
-            navigate('/');
-        })
-        .catch((error)=>{
-            console.log(error.response.status);
-            if(error.response.status==401){
-               setMessage(error.response.data.detail);
-            }
-        });
+            .post(`${BASE_URL}`, {"username": username, "password": password})
+            .then((response) => {
+                let data = response.data;
+                localStorage.setItem("token", JSON.stringify(data.token));
+                localStorage.setItem("username", username);
+                updateUserData({type: "LOGIN", payload: data});
+                console.log(data.token);
+                navigate('/');
+            })
+            .catch((error) => {
+                console.log(error.response.status);
+                if (error.response.status === 401) {
+                    setErrorMessage("Invalid user credential.");
+                } else {
+                    setErrorMessage("An error occurred. Please try again.");
+                }
+            });
     };
 
     return (
@@ -62,12 +59,12 @@
             <LoginHead>Log In</LoginHead>
             <SignInForm>
                 <InputContainer>
-                    <SiginLabel>Email</SiginLabel>
-                    <SiginInput type="email" value={username} onChange={(e) => setUserName(e.target.value)} placeholder="Email" />
+                    <SiginLabel>Username</SiginLabel>
+                    <SiginInput type="name" value={username} onChange={(e) => setUserName(e.target.value)} placeholder="Username"  maxLength={30}/>
                 </InputContainer>
                 <InputContainer>
                     <SiginLabel>Password</SiginLabel>
-                    <SiginInput type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                    <SiginInput type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"  maxLength={15}/>
                 </InputContainer>
                 {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
                 <SignInButton onClick={handleSubmit}>Log In</SignInButton>
@@ -86,11 +83,11 @@
     export default Login;
 
     const LoginContainer = styled.div`
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #0f0f0f;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #0f0f0f;
     `;
 
     const LoginContent = styled.div`
@@ -114,6 +111,9 @@
     border-radius: 20px;
     display: flex;
     flex-direction: column;
+    @media (max-width: 360px) {
+        padding: 20px;
+    }
     `;
 
     const InputContainer = styled.div``;
@@ -131,6 +131,9 @@
     padding: 10px;
     margin-bottom: 15px;
     border-radius: 10px;
+    @media (max-width: 360px) {
+        width: 235px;
+    }
     `;
 
     const SignInButton = styled.button`
@@ -175,12 +178,19 @@
     position: sticky;
     top: 0;
     z-index: 11;
+    @media (max-width: 360px) {
+        padding: 10px 30px;
+    }
     `;
 
     const LogoContainer = styled(Link)`
-    width: 150px;
-    background-color: #0f0f0f;
-    height: 50px;
+        width: 150px;
+        background-color: #0f0f0f;
+        height: 50px;
+    @media (max-width: 360px) {
+        width: 100px;
+        height: 38px;
+    }
     `;
 
     const LogoTag = styled.a`

@@ -2,16 +2,14 @@ import React, {useContext} from 'react';
 import styled from 'styled-components';
 import { BiSolidVolumeMute } from 'react-icons/bi';
 import { PiSubtitlesFill } from 'react-icons/pi';
-import videos from '../../../../assets/videos.json';
-import { useNavigate } from 'react-router-dom';
 import { HiDotsVertical } from 'react-icons/hi';
 import { differenceInDays, differenceInMonths, differenceInYears } from 'date-fns';
 import { SearchContext } from '../../../general/includes/SearchContext';
+import videos from '../../../../assets/videos.json';
+import { useNavigate } from 'react-router-dom';
 
 const Videos = ({activeCategory}) => {
-    // const { searchQuery } = useContext(SearchContext);
     const { searchQuery, isSearchActive } = useContext(SearchContext);
-    
     const navigate = useNavigate();
 
     const handleClick = (video) => {
@@ -39,38 +37,43 @@ const Videos = ({activeCategory}) => {
     };
 
     const filteredVideos = isSearchActive 
-    ? videos.filter(video => {
-        const matchesCategory = activeCategory === 'All' || video.categories.includes(activeCategory);
-        const matchesSearch = video.title.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesCategory && matchesSearch;
-    })
-    : videos.filter(video => activeCategory === 'All' || video.categories.includes(activeCategory));
+        ? videos.filter(video => {
+            const matchesCategory = activeCategory === 'All' || video.categories.includes(activeCategory);
+            const matchesSearch = video.title.toLowerCase().includes(searchQuery.toLowerCase());
+            return matchesCategory && matchesSearch;
+        })
+        : videos.filter(video => activeCategory === 'All' || video.categories.includes(activeCategory));
 
     return (
+
         <VideoContainer>
-            {filteredVideos.map((video) => (
-                <ThumbNail key={video.videoId} onClick={() => handleClick(video)}>
-                    <ThumbnailImgContainer>
-                        <ThumbNailImg src={video.thumbnail} alt="Thumbnail" />
-                        <VideoHover>
-                            <VolumeIcon><BiSolidVolumeMute /></VolumeIcon>
-                            <SubtitleIcon><PiSubtitlesFill /></SubtitleIcon>
-                        </VideoHover>
-                        <VideoDuration>{video.duration}</VideoDuration>
-                    </ThumbnailImgContainer>
-                    <VideoThumbnail>
-                        <ChannelProfile>
-                            <ProfileImg src={video.thumbnail} />
-                        </ChannelProfile>
-                        <VideoTitleContainer>
-                            <VideoTitle>{video.title}</VideoTitle>
-                            <ChannelName>{video.channelName}</ChannelName>
-                            <VideoViews>{video.views} Views . {getFormattedTime(video.uploaded)}</VideoViews>
-                        </VideoTitleContainer>
-                        <MenuIcon><HiDotsVertical /></MenuIcon>
-                    </VideoThumbnail>
-                </ThumbNail>
-            ))}
+            {filteredVideos.length === 0 ? (
+                <NoVideosMessage>No such videos</NoVideosMessage>
+            ) : (
+                filteredVideos.map((video) => (
+                    <ThumbNail key={video.videoId} onClick={() => handleClick(video)}>
+                        <ThumbnailImgContainer>
+                            <ThumbNailImg src={video.thumbnail} alt="Thumbnail" />
+                            <VideoHover>
+                                <VolumeIcon><BiSolidVolumeMute /></VolumeIcon>
+                                <SubtitleIcon><PiSubtitlesFill /></SubtitleIcon>
+                            </VideoHover>
+                            <VideoDuration>{video.duration}</VideoDuration>
+                        </ThumbnailImgContainer>
+                        <VideoThumbnail>
+                            <ChannelProfile>
+                                <ProfileImg src={video.thumbnail} />
+                            </ChannelProfile>
+                            <VideoTitleContainer>
+                                <VideoTitle>{video.title}</VideoTitle>
+                                <ChannelName>{video.channelName}</ChannelName>
+                                <VideoViews>{video.views} Views . {getFormattedTime(video.uploaded)}</VideoViews>
+                            </VideoTitleContainer>
+                            <MenuIcon><HiDotsVertical /></MenuIcon>
+                        </VideoThumbnail>
+                    </ThumbNail>
+                ))
+            )}
         </VideoContainer>
     );
 }
@@ -81,11 +84,10 @@ export default Videos;
         margin-top: 40px;
         width: 100%;
         display: grid;
-        grid-template-columns: 3fr 3fr 3fr;
         overflow: hidden;
-        /* background-color: black; */
+        grid-template-columns: 3fr 3fr 3fr;
 
-        @media (max-width: 1080px) {
+        @media (max-width: 1100px) {
             grid-template-columns: 2fr 2fr ;
             }
         @media (max-width: 1024px) {
@@ -102,12 +104,23 @@ export default Videos;
             flex-direction: column;
             align-items: center;
             }
-         `;
+    `;
+
+    const NoVideosMessage = styled.div`
+        text-align: center;
+        color: #f1f1f1;
+        font-size: 18px;
+        font-weight: bold;
+    `;
 
     const ThumbNail=styled.div`
         margin-bottom: 40px;
-        /* background-color: black; */
-
+        @media (max-width: 980px) {
+            width: min-content;
+        }
+        @media (max-width: 480px) {
+            width: 100%;
+        }
     `;
 
     const VideoHover=styled.div`
@@ -153,32 +166,34 @@ export default Videos;
                 display: none;
             }
         }
+        @media (max-width: 1280px) {
+        width: 332px;
+        height: 193px;
+        }
         @media (max-width: 980px) {
         width: 280px;
         height: 163px;
-    }
+        }
         @media (max-width: 768px) {
-            width: 343px;
-            height:193px;
-    }
-        @media (max-width: 768px) {
+            width: 322px;
+            height: 171px;
+        }
+        @media (max-width: 640px) {
             width: 280px;
-            height: 163px;
+            height: 171px;
     }
     @media (max-width: 540px) {
         width: 428px;
         height: 237px;
     }
     @media (max-width: 480px) {
-            width: 343px;
-            height:193px;
+        width: 100%;
+        height: 200px;
     }
     @media (max-width: 360px) {
-            width: 323px;
             height:173px;
     }
     @media (max-width: 320px) {
-            width: 280px;
             height: 163px;
     }
     `;

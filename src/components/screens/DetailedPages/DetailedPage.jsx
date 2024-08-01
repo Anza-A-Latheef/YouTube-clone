@@ -54,7 +54,7 @@ const DetailedPageLeft=styled.div`
     &::-webkit-scrollbar {
         display: none; 
     }
-    @media (max-width: 1080px) {
+    @media (max-width: 1100px) {
         margin-left: 30px;
     }
     @media (max-width: 980px) {
@@ -79,5 +79,7 @@ const DetailedPageRight=styled.div`
     @media (max-width: 768px) {
         width: 100%;
         overflow: visible;
+        margin: 0px;
+        padding: 20px 30px;
     }
 `;
