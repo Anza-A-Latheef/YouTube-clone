@@ -218,6 +218,9 @@ const YouTubeItemLi=styled.li`
     &:hover{
         background-color: #ffffff14;
     }
+    @media (max-width: 360px) {
+            padding:0px;
+        }
 `;
 
 const YoutubeLeftIcons=styled.p`
