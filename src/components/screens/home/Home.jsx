@@ -25,7 +25,6 @@ const Home = () => {
                 </YoutubeHomeLeft>
                 <YoutubeHomeRight>
                     <Categories/>
-                    <Videos />
                 </YoutubeHomeRight>
             </YoutubeHome>
         </HomeContainer>
